@@ -64,7 +64,6 @@
                   <Font name="Tahoma Bold" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="prompt" layoutX="105.0" layoutY="28.0" prefHeight="18.0" prefWidth="220.0" textFill="WHITE" />
             <Label fx:id="question" layoutX="70.0" layoutY="166.0" prefHeight="18.0" prefWidth="251.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -95,5 +94,10 @@
             <Label fx:id="labelPass" alignment="CENTER" layoutX="54.0" layoutY="463.0" prefHeight="18.0" prefWidth="322.0" textFill="WHITE" />
          </children>
       </AnchorPane>
+      <Label fx:id="prompt" alignment="CENTER" layoutX="320.0" layoutY="23.0" prefHeight="20.0" prefWidth="307.0">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

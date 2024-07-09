@@ -1,5 +1,4 @@
 package FXML;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,25 +10,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import phase1.DatabaseHelper;
 import phase1.User;
-
-
-import javax.security.auth.kerberos.KerberosTicket;
 import java.io.IOException;
-import java.util.List;
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 public class logInController {
 
     private Stage stage;
     private Scene scene;
     private Parent root;
-
     private String Password;
+    private int failedAttempts = 0;
+    private Timeline countdownTimeline;
+    private boolean isBanned = false;
+    private int countdownSeconds;
     private static String[] Questions = {"What is your father's name ?",
             "What is your favourite color ?"
             , "What was the name of your first pet?"};
@@ -54,25 +54,65 @@ public class logInController {
     }
 
     public void Login(ActionEvent event) throws IOException {
+        if (isBanned) {
+            return;
+        }
         String username = textField.getText();
         String password = passwordField.getText();
 
-        if(!DatabaseHelper.checkUser(username,password)){
+        if(!DatabaseHelper.checkUser(username,password)&&DatabaseHelper.ExistUsername(username)){
+            failedAttempts++;
             login.setStyle("-fx-background-color: red");
-
+            prompt.setText("Incorrect username or password.");
+            passwordField.setText("");
+            passwordField.setPromptText("BANNED");
+            textField.setText("");
+            textField.setPromptText("BANNED");
+            isBanned = true;
+            int banDuration = failedAttempts * 5;
+            startCountdown(banDuration);
         }else{
-            login.setStyle("-fx-background-color:  #76ff03;");
-            currentuser = User.getUser(username);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/mainMenu.fxml"));
-            root = loader.load();
-            mainMenuController mainController = loader.getController();
-            mainController.setCurrentuser(currentuser);
-            stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            if(!DatabaseHelper.ExistUsername(username)){
+                prompt.setText("Username doesn't Exist!");
+                textField.setText("");
+                passwordField.setText("");
+            }else {
+                currentuser = User.getUser(username);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/mainMenu.fxml"));
+                root = loader.load();
+                mainMenuController mainController = loader.getController();
+                mainController.setCurrentuser(currentuser);
+                stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                failedAttempts = 0;
+            }
         }
     }
+    private void startCountdown(int seconds) {
+        countdownSeconds = seconds;
+        countdownTimeline = new Timeline();
+        countdownTimeline.setCycleCount(Timeline.INDEFINITE);
+
+        countdownTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
+            prompt.setText("Please wait " + countdownSeconds + " seconds before trying again.");
+            countdownSeconds--;
+
+            if (countdownSeconds <= 0) {
+                countdownTimeline.stop();
+                isBanned = false;
+                prompt.setText("");
+                login.setStyle("-fx-background-color:  #76ff03;");
+                textField.setPromptText("");
+                passwordField.setPromptText("");
+            }
+        }));
+
+        countdownTimeline.playFromStart();
+
+    }
+
 
     public void forgotpassword(ActionEvent event){
         textField.setDisable(true);
