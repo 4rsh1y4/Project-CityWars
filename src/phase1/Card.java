@@ -18,6 +18,19 @@ public class Card {
     public String getCode() {
         return code;
     }
+    Card(Card card)
+    {
+        this.code = card.code;
+        this.name = card.name;
+        this.level = 1;
+        this.cardAttackDefence = card.cardAttackDefence;
+        this.duration = card.duration;
+        this.playerDamage = card.playerDamage;
+        this.upgradeLevel = card.upgradeLevel;
+        this.upgradeCost = card.upgradeCost;
+        this.character = card.character;
+        this.type = card.type;
+    }
 
     public void setCode(String code) {
         this.code = code;

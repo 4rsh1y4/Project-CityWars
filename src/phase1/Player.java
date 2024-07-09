@@ -27,6 +27,16 @@ public class Player {
         }
         return 0;
     }
+    public boolean isMakhfi() {
+        return makhfi;
+    }
+
+    public void setMakhfi(boolean makhfi) {
+        this.makhfi = makhfi;
+    }
+
+
+
     //ArrayList<Integer> corrupted = new ArrayList<>();
     public boolean[] corrupted = new boolean[21];
 
@@ -136,7 +146,7 @@ public class Player {
         {
             for(int i = 0 ; i < hand.size(); i++)
             {
-                System.out.println(i+": "+hand.get(i).toString());
+                System.out.println((i+1)+": "+hand.get(i).toString());
             }
         }
     }

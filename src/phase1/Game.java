@@ -420,14 +420,7 @@ public class Game {
         System.out.println(player2.boardToString());
 
         System.out.println("Player 1 Hand:");
-        for (Card card : player1.getHand()) {
-            System.out.println(card.toString());
-        }
-
-        System.out.println("Player 2 Hand:");
-        for (Card card : player2.getHand()) {
-            System.out.println(card.toString());
-        }
+        player1.toStringHand();;
 
         System.out.println("Player 1 HP: " + player1.getHp());
         System.out.println("Player 1 Damage: " + player1.getDamage());
