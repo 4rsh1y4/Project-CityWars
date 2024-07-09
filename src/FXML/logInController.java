@@ -2,21 +2,33 @@ package FXML;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import phase1.DatabaseHelper;
 import phase1.User;
 
 
 import javax.security.auth.kerberos.KerberosTicket;
+import java.io.IOException;
 import java.util.List;
 
 public class logInController {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     private String Password;
     private static String[] Questions = {"What is your father's name ?",
             "What is your favourite color ?"
@@ -36,10 +48,12 @@ public class logInController {
     ImageView pass;
 
 
-    public void resetcolor1(KeyEvent event){
-        login.setStyle("-fx-background-color:  #76ff03;");
+    @FXML public void initialize(){
+        forgot.setVisible(false);
+        forgot.setDisable(true);
     }
-    public void Login(ActionEvent event){
+
+    public void Login(ActionEvent event) throws IOException {
         String username = textField.getText();
         String password = passwordField.getText();
 
@@ -48,7 +62,15 @@ public class logInController {
 
         }else{
             login.setStyle("-fx-background-color:  #76ff03;");
-            //go to mainmenu
+            currentuser = User.getUser(username);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/mainMenu.fxml"));
+            root = loader.load();
+            mainMenuController mainController = loader.getController();
+            mainController.setCurrentuser(currentuser);
+            stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
@@ -56,8 +78,8 @@ public class logInController {
         textField.setDisable(true);
         passwordField.setDisable(true);
         login.setDisable(true);
-        forgot.toFront();
-
+        forgot.setVisible(true);
+        forgot.setDisable(false);
     }
     public void checkusername(ActionEvent event){
         String username = textField1.getText();
@@ -86,7 +108,7 @@ public class logInController {
             login12.setOpacity(1);
         }
     }
-    public void checkpassword(){
+    public void checkpassword() throws InterruptedException {
         String pass1 = passwordField1.getText();
         String pass2 = passwordField11.getText();
         if (!pass1.equals(pass2) && !(pass1.equals("")||pass2.equals(""))) {
@@ -95,7 +117,10 @@ public class logInController {
         } else {
             String reg8char = ".{8,}$";
             String regChars = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).*$";
-            if (!pass1.matches(reg8char) && pass1.matches(regChars)) {
+            if(pass1.equals(currentuser.getPassword())){
+                labelPass.setText("Your password can't be the same as before!");
+                login12.setStyle("-fx-background-color: red");
+            }else if (!pass1.matches(reg8char) && pass1.matches(regChars)) {
                 labelPass.setText("Your password should be atleast 8 characters");
                 login12.setStyle("-fx-background-color: red");
             } else if (!pass1.matches(regChars) && pass1.matches(reg8char)) {
@@ -105,12 +130,22 @@ public class logInController {
                 labelPass.setText("Your password is trash");
                 login12.setStyle("-fx-background-color: red");
             } else {
-                this.Password = pass1;
+                currentuser.setPassword(pass1);
                 labelPass.setText("passed.");
-
+                Thread.sleep(100);
+                DatabaseHelper.changePassword(currentuser.getUsername(), currentuser.getPassword());
+                forgot.setVisible(false);
+                forgot.setDisable(true);
+                textField.setDisable(false);
+                passwordField.setDisable(false);
+                login.setDisable(false);
             }
 
         }
+    }
+    public void revertColor(MouseEvent event){
+        labelPass.setText("");
+        login12.setStyle("-fx-background-color:  #76ff03;");
     }
 
 }

@@ -2,18 +2,29 @@ package FXML;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import phase1.DatabaseHelper;
 import phase1.Captcha;
+import phase1.User;
 import phase1.commandmanager;
 
 import java.io.IOException;
 import java.util.Random;
 
 public class signUpController {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     private String Username;
     private String Password;
     private String Nickname;
@@ -21,41 +32,26 @@ public class signUpController {
     private int questionNumber;
     private String questionAnswer;
     private String captch ;
-    @FXML
-    Label signup,labelEmail;
-    @FXML
-    Label labelUsername;
-    @FXML
-    Label labelNickname;
-    @FXML
-    Label labelPass,captcha;
 
-    @FXML
-    Button checkUsername;
-    @FXML
-    Button checkNickname;
-    @FXML
-    Button checkPassword;
-    @FXML
-    Button checkQuestion;
+    @FXML    Label signup,labelEmail;
+    @FXML    Label labelUsername;
+    @FXML    Label labelNickname;
+    @FXML    Label labelPass,captcha;
 
-    @FXML
-    TextField usernameText;
-    @FXML
-    TextField emailText;
-    @FXML
-    TextField nicknameText;
-    @FXML
-    TextField questionText,captchaText;
+    @FXML    Button checkUsername;
+    @FXML    Button checkNickname;
+    @FXML    Button checkPassword;
+    @FXML    Button checkQuestion;
 
-    @FXML
-    PasswordField passwordText1;
-    @FXML
-    PasswordField passwordText2;
+    @FXML  TextField usernameText;
+    @FXML  TextField emailText;
+    @FXML  TextField nicknameText;
+    @FXML  TextField questionText,captchaText;
 
-    @FXML
-    CheckBox question1,question2,question3;
+    @FXML  PasswordField passwordText1;
+    @FXML  PasswordField passwordText2;
 
+    @FXML CheckBox question1,question2,question3;
 
     @FXML
     public void initialize() {
@@ -80,9 +76,6 @@ public class signUpController {
         String cap = Captcha.generateCaptchaNumber(n);
         this.captch = cap;
         captcha.setText(Captcha.getCaptchaDisplay(cap));
-
-
-
 
         checkUsername.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -263,8 +256,16 @@ public class signUpController {
         }
     }
 
-    public void signUp(MouseEvent event){
+    public void signUp(MouseEvent event) throws IOException {
         DatabaseHelper.insertUser(Email,Password,Username,Nickname,questionAnswer,questionNumber,1,100,0,222,"z1","");
-        //go to mainmenu
-    }
+        User currentuser = User.getUser(Username);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/mainMenu.fxml"));
+        root = loader.load();
+        mainMenuController mainController = loader.getController();
+        mainController.setCurrentuser(currentuser);
+
+        stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();    }
 }
