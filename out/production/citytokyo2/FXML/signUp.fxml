@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -20,29 +21,37 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="usernameText" layoutX="221.0" layoutY="127.0" onKeyPressed="#revertcolor" prefHeight="31.0" prefWidth="175.0" promptText="Enter your username:" />
-            <Label contentDisplay="CENTER" layoutX="55.0" layoutY="123.0" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #ffdf85; -fx-background-radius: 10;" text="  Username:" textAlignment="CENTER">
+            <TextField fx:id="usernameText" layoutX="221.0" layoutY="113.0" onKeyPressed="#revertcolor" prefHeight="31.0" prefWidth="175.0" promptText="Enter your username:" />
+            <Label contentDisplay="CENTER" layoutX="55.0" layoutY="114.0" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #ffdf85; -fx-background-radius: 10;" text="  Username:" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="checkUsername" layoutX="412.0" layoutY="129.0" mnemonicParsing="false" onAction="#checkusername" prefHeight="26.0" prefWidth="51.0" style="-fx-background-color: #ffefc2; -fx-background-radius: 20;" text="check" />
+            <Button fx:id="checkUsername" layoutX="412.0" layoutY="120.0" mnemonicParsing="false" onAction="#checkusername" prefHeight="26.0" prefWidth="51.0" style="-fx-background-color: #ffefc2; -fx-background-radius: 20;" text="check" />
             <Label contentDisplay="CENTER" layoutX="55.0" layoutY="188.0" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #ffdf85; -fx-background-radius: 10;" text="  Email:" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <TextField fx:id="emailText" layoutX="221.0" layoutY="192.0" onKeyPressed="#revertcolor1" prefHeight="31.0" prefWidth="175.0" promptText="Enter your email:" />
-            <Button fx:id="checkNickname" layoutX="412.0" layoutY="266.0" mnemonicParsing="false" onAction="#checknickname" prefHeight="26.0" prefWidth="51.0" style="-fx-background-color: #ffefc2; -fx-background-radius: 20;" text="check" />
-            <Label contentDisplay="CENTER" layoutX="55.0" layoutY="259.0" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #ffdf85; -fx-background-radius: 10;" text="  Nickname:" textAlignment="CENTER">
+            <Button fx:id="checkNickname" layoutX="422.0" layoutY="244.0" mnemonicParsing="false" onAction="#checknickname" prefHeight="26.0" prefWidth="51.0" style="-fx-background-color: #ffefc2; -fx-background-radius: 20;" text="check" />
+            <Label contentDisplay="CENTER" layoutX="55.0" layoutY="238.0" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #ffdf85; -fx-background-radius: 10;" text="  Nickname:" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="nicknameText" layoutX="221.0" layoutY="263.0" onKeyPressed="#revertcolor1" prefHeight="31.0" prefWidth="175.0" promptText="Enter your nickname:" />
-            <Label fx:id="labelUsername" layoutX="504.0" layoutY="134.0" prefHeight="18.0" prefWidth="386.0" text="Label" />
-            <Label fx:id="labelEmail" layoutX="504.0" layoutY="198.0" prefHeight="18.0" prefWidth="386.0" text="Label" />
-            <Label fx:id="labelNickname" layoutX="504.0" layoutY="269.0" prefHeight="18.0" prefWidth="386.0" text="Label" />
+            <TextField fx:id="nicknameText" layoutX="221.0" layoutY="242.0" onKeyPressed="#revertcolor1" prefHeight="31.0" prefWidth="175.0" promptText="Enter your nickname:" />
+            <Label fx:id="labelUsername" layoutX="504.0" layoutY="134.0" prefHeight="18.0" prefWidth="386.0" />
+            <Label fx:id="labelEmail" layoutX="504.0" layoutY="198.0" prefHeight="18.0" prefWidth="386.0" />
+            <Label fx:id="labelNickname" layoutX="504.0" layoutY="269.0" prefHeight="18.0" prefWidth="386.0" />
+            <Label contentDisplay="CENTER" layoutX="55.0" layoutY="318.0" prefHeight="39.0" prefWidth="106.0" style="-fx-background-color: #ffdf85; -fx-background-radius: 10;" text="  Password:" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passwordText1" layoutX="221.0" layoutY="325.0" onKeyPressed="#revertcolor2" promptText="Enter your password" />
+            <PasswordField fx:id="passwordText2" layoutX="222.0" layoutY="367.0" promptText="Repeat your password" />
+            <Button fx:id="checkPassword" layoutX="422.0" layoutY="366.0" mnemonicParsing="false" onAction="#checkpassword" prefHeight="26.0" prefWidth="51.0" style="-fx-background-color: #ffefc2; -fx-background-radius: 20;" text="check" />
          </children>
       </AnchorPane>
    </children>

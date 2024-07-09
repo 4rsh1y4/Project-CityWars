@@ -19,7 +19,7 @@ public class Player {
     ArrayList<Card> hand = new ArrayList<>();
     int round;
     //ArrayList<Integer> corrupted = new ArrayList<>();
-    private boolean[] corrupted = new boolean[21];
+    public boolean[] corrupted = new boolean[21];
 
 
     public void setUser(User user) {

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseHelper {
-    private static final String DATABASE_URL = "jdbc:sqlite:C:/Users/4rsh1y4/IdeaProjects/citytokyo/src/database/mydb.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:G:/Karshenasi/Codes/oop/Project-CityWars/src/database/mydb.db";
 
     static {
         try {

@@ -1,4 +1,5 @@
 package phase1;
+import java.util.Collections;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,16 +45,21 @@ public class Game {
 
         Pattern placePattern = Pattern.compile("-Placing card number (\\d+) in block (\\d+)");
         Scanner gameSc = new Scanner(System.in);
-        Player playingPlayer;
+        Player playingPlayer,theOtherPlayer;
         for(int i = 0; i < 8 ; i++) {
-
 
             if(i%2==0)
             {
                 playingPlayer=first;
+                theOtherPlayer=second;
             }
             else {
                 playingPlayer=second;
+                theOtherPlayer=first;
+            }
+            if(playingPlayer.round<=0)
+            {
+                continue;
             }
             String command = gameSc.nextLine();
             Matcher selectMatcher = selectPattern.matcher(command);
@@ -73,7 +79,110 @@ public class Game {
             else if (placeMatcher.matches()) {
                 int cardNumber = Integer.parseInt(placeMatcher.group(1));
                 int blockIndex = Integer.parseInt(placeMatcher.group(2));
-                if (playingPlayer.putCard(playingPlayer.getHand().get(cardNumber - 1), blockIndex-1))
+                if(playingPlayer.getHand().get(cardNumber - 1).getType().equals("b"))
+                {
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==99)
+                    {
+                        if(playingPlayer.getHp()+100<=playingPlayer.getUser().getHp())
+                            playingPlayer.setHp(playingPlayer.getHp()+100);
+                        else
+                            playingPlayer.setHp(playingPlayer.getUser().getHp());
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==88)
+                    {
+                        if(playingPlayer.getBoard()[blockIndex-1]!=null && !playingPlayer.ruined[blockIndex-1] && !playingPlayer.corrupted[blockIndex-1] ) {
+                            playingPlayer.getBoard()[blockIndex - 1].setPlayerDamage(playingPlayer.getBoard()[blockIndex - 1].getPlayerDamage() + 10);
+                            playingPlayer.getBoard()[blockIndex-1].setCardAttackDefence(playingPlayer.getBoard()[blockIndex-1].getCardAttackDefence()+10);
+                        }
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==110)
+                    {
+                        if(theOtherPlayer.getBoard()[blockIndex-1]!=null && !playingPlayer.ruined[blockIndex-1] && !playingPlayer.corrupted[blockIndex-1] && playingPlayer.getBoard()[blockIndex-1]==null) {
+                            theOtherPlayer.ruined[blockIndex - 1]=true;
+                            playingPlayer.getBoard()[blockIndex-1]=playingPlayer.getHand().get(cardNumber - 1);
+                        }
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==77)
+                    {
+                        Random randomIndex = new Random();
+                        for(int j = 0 ; j <200 ; j++)
+                        {
+                            int index = randomIndex.nextInt(21);
+                            if(!playingPlayer.corrupted[index] && playingPlayer.getBoard()[index]==null)
+                            {
+                                playingPlayer.corrupted[playingPlayer.corruptedFinder()]=false;
+                                playingPlayer.corrupted[index]=true;
+                                break;
+                            }
+                        }
+                        for(int j = 0 ; j <200 ; j++)
+                        {
+                            int index = randomIndex.nextInt(21);
+                            if(!theOtherPlayer.corrupted[index] && theOtherPlayer.getBoard()[index]==null)
+                            {
+                                theOtherPlayer.corrupted[playingPlayer.corruptedFinder()]=false;
+                                theOtherPlayer.corrupted[index]=true;
+                                break;
+                            }
+                        }
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==66)
+                    {
+                        playingPlayer.corrupted[playingPlayer.corruptedFinder()]=false;
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==55)
+                    {
+                        if(playingPlayer.round>=1)
+                            playingPlayer.round--;
+                        if(theOtherPlayer.round>=1)
+                            theOtherPlayer.round--;
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==121)
+                    {
+                        //Nigger
+                        Random randomCard=new Random();
+                        int aa = randomCard.nextInt(theOtherPlayer.hand.size());
+                        playingPlayer.hand.add(theOtherPlayer.hand.get(aa));
+                        theOtherPlayer.hand.remove(aa);
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==134)
+                    {
+                        //Fem
+                        Random randomCard=new Random();
+                        int aa = 0;
+                        for(int j = 0 ; j < 100;j++) {
+                            aa = randomCard.nextInt(theOtherPlayer.hand.size());
+                            if(theOtherPlayer.hand.get(aa).getType().equals("a")) {
+                                theOtherPlayer.hand.get(aa).setCardAttackDefence(theOtherPlayer.hand.get(aa).getCardAttackDefence()-10);
+                                break;
+                            }
+                        }
+                        for(int j = 0 ; j < 100;j++) {
+                            aa = randomCard.nextInt(theOtherPlayer.hand.size());
+                            if(theOtherPlayer.hand.get(aa).getType().equals("a")) {
+                                theOtherPlayer.hand.get(aa).setPlayerDamage(theOtherPlayer.hand.get(aa).getPlayerDamage()-10);
+                                break;
+                            }
+                        }
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==143)
+                    {
+                        //Chin
+                        System.out.println("Select the card:");
+                        playingPlayer.toStringHand();
+                        command = gameSc.nextLine();
+                        Card newCard = new Card(playingPlayer.getHand().get(Integer.parseInt(command) - 1));
+                        playingPlayer.addToHand(newCard);
+                    }
+                    if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==154)
+                    {
+                        //FBI
+                        theOtherPlayer.setMakhfi(true);
+                        Collections.shuffle(theOtherPlayer.hand);
+                    }
+                    playingPlayer.hand.remove(cardNumber - 1);
+                }
+                else if (playingPlayer.putCard(playingPlayer.getHand().get(cardNumber - 1), blockIndex-1))
                 {
                     playingPlayer.hand.remove(cardNumber - 1);
                     for(int j = blockIndex-1;j<playingPlayer.getHand().get(cardNumber - 1).getDuration()+blockIndex-1;j++)
