@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.signUpController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="390.0" layoutY="28.0" prefHeight="74.0" prefWidth="175.0" style="-fx-background-color: #f2cd66; -fx-background-radius: 80; -fx-border-radius: 100;" text="       welcome" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="14.0" layoutY="5.0" prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e;">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="386.0" layoutY="33.0" onMouseClicked="#sout" prefHeight="74.0" prefWidth="175.0" style="-fx-background-color: #f2cd66; -fx-background-radius: 80; -fx-border-radius: 100;" text="       welcome" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

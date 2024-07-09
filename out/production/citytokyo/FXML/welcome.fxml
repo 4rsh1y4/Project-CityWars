@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.welcomeController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="390.0" layoutY="28.0" prefHeight="74.0" prefWidth="175.0" style="-fx-background-color: #f2cd66; -fx-background-radius: 80; -fx-border-radius: 100;" text="       welcome" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="14.0" layoutY="5.0" prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e;">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="386.0" layoutY="33.0" prefHeight="74.0" prefWidth="175.0" style="-fx-background-color: #f2cd66; -fx-background-radius: 80; -fx-border-radius: 100;" text="       welcome" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label contentDisplay="CENTER" layoutX="114.0" layoutY="282.0" prefHeight="50.0" prefWidth="262.0" style="-fx-background-color: #f2cd66; -fx-background-radius: 10; -fx-border-radius: 100;" text=" City wars: Tehran Reign" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Button fx:id="LogIn" layoutX="624.0" layoutY="223.0" mnemonicParsing="false" onAction="#login" prefHeight="59.0" prefWidth="186.0" style="-fx-background-color: #ad861a; -fx-background-radius: 100;" text="Log in">
+               <font>
+                  <Font name="Tahoma" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="SignUp" layoutX="624.0" layoutY="325.0" mnemonicParsing="false" onAction="#signup" prefHeight="59.0" prefWidth="186.0" style="-fx-background-color: #ad861a; -fx-background-radius: 40;" text="Sign up">
+               <font>
+                  <Font name="Tahoma" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
