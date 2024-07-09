@@ -18,7 +18,7 @@ public class User {
     private List<Card> cards = new ArrayList<>();
     public static List<User> userList = new ArrayList<>();
 
-    User(String username, String nickname, String password, String email, int questionNumber, String questionAnswer, int level, int xp, int hp, int coin, String cardString, String gameHistory) {
+    public User(String username, String nickname, String password, String email, int questionNumber, String questionAnswer, int level, int xp, int hp, int coin, String cardString, String gameHistory) {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
@@ -34,6 +34,10 @@ public class User {
         this.cards=loadCardsFromString(cardString);
         System.out.println(cards);
         userList.add(this);
+    }
+
+    public User(){
+
     }
 
     public static void setUserList(List<User> userList) {
@@ -131,7 +135,6 @@ public class User {
     public static User getUser(String username){
         for(User u : userList){
             if(u.username.equals(username)){
-                System.out.println("nigga");
                 return u;
             }
         }

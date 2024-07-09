@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import phase1.DatabaseHelper;
 import phase1.Captcha;
+import phase1.commandmanager;
 
 import java.io.IOException;
 import java.util.Random;
@@ -164,39 +165,56 @@ public class signUpController {
     }
 
     public void checkpassword(ActionEvent event) {
-        String pass1 = passwordText1.getText();
-        String pass2 = passwordText2.getText();
-        if (!pass1.equals(pass2) && !(pass1.equals("")||pass2.equals(""))) {
-            labelPass.setText("Your password doesn't match!");
-            checkPassword.setStyle("-fx-background-color: red");
-        } else {
-            String reg8char = ".{8,}$";
-            String regChars = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).*$";
-            if (!pass1.matches(reg8char) && pass1.matches(regChars)) {
-                labelPass.setText("Your password should be atleast 8 characters");
-                checkPassword.setStyle("-fx-background-color: red");
-            } else if (!pass1.matches(regChars) && pass1.matches(reg8char)) {
-                labelPass.setText("Your password should contain lower and upper and special chars");
-                checkPassword.setStyle("-fx-background-color: red");
-            } else if (!pass1.matches(regChars) && !pass1.matches(reg8char)) {
-                labelPass.setText("Your password is trash");
+            String pass1 = passwordText1.getText();
+            String pass2 = passwordText2.getText();
+            if (!pass1.equals(pass2) && !(pass1.equals("")||pass2.equals(""))) {
+                labelPass.setText("Your password doesn't match!");
                 checkPassword.setStyle("-fx-background-color: red");
             } else {
-                this.Password = pass1;
-                labelPass.setText("passed.");
-                checkPassword.setDisable(true);
-                passwordText1.setDisable(true);
-                passwordText2.setDisable(true);
+                String reg8char = ".{8,}$";
+                String regChars = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).*$";
+                if (!pass1.matches(reg8char) && pass1.matches(regChars)) {
+                    labelPass.setText("Your password should be atleast 8 characters");
+                    checkPassword.setStyle("-fx-background-color: red");
+                } else if (!pass1.matches(regChars) && pass1.matches(reg8char)) {
+                    labelPass.setText("Your password should contain lower and upper and special chars");
+                    checkPassword.setStyle("-fx-background-color: red");
+                } else if (!pass1.matches(regChars) && !pass1.matches(reg8char)) {
+                    labelPass.setText("Your password is trash");
+                    checkPassword.setStyle("-fx-background-color: red");
+                } else {
+                    this.Password = pass1;
+                    labelPass.setText("passed.");
+                    checkPassword.setDisable(true);
+                    passwordText1.setDisable(true);
+                    passwordText2.setDisable(true);
 
-                question1.setDisable(false);
-                question2.setDisable(false);
-                question3.setDisable(false);
+                    question1.setDisable(false);
+                    question2.setDisable(false);
+                    question3.setDisable(false);
+                    captcha.setDisable(false);
+
+                }
 
             }
-
-        }
     }
 
+
+    public void randompass(MouseEvent event){
+        String pass = commandmanager.generateRandomPassword(10);
+        passwordText2.setText(pass);
+        passwordText1.setText(pass);
+        this.Password = pass;
+        checkPassword.setDisable(true);
+        passwordText1.setDisable(true);
+        passwordText2.setDisable(true);
+
+        question1.setDisable(false);
+        question2.setDisable(false);
+        question3.setDisable(false);
+        captcha.setDisable(false);
+
+    }
     public void question1Selected(ActionEvent event){
         question1.setSelected(true);
         question2.setSelected(false);
@@ -246,6 +264,7 @@ public class signUpController {
     }
 
     public void signUp(MouseEvent event){
-
+        DatabaseHelper.insertUser(Email,Password,Username,Nickname,questionAnswer,questionNumber,1,100,0,222,"z1","");
+        //go to mainmenu
     }
 }
