@@ -18,6 +18,15 @@ public class Player {
     Card[] board = new Card[21];
     ArrayList<Card> hand = new ArrayList<>();
     int round;
+    public int corruptedFinder()
+    {
+        for(int i = 0;i<21;i++)
+        {
+            if(corrupted[i])
+                return i;
+        }
+        return 0;
+    }
     //ArrayList<Integer> corrupted = new ArrayList<>();
     public boolean[] corrupted = new boolean[21];
 
