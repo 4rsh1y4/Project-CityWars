@@ -98,5 +98,17 @@ public class Captcha {
         }
     }
 
+    public static String getCaptchaDisplay(String captchaNumber) {
+        StringBuilder captchaDisplay = new StringBuilder();
+        for (int row = 0; row < 5; row++) {
+            for (int i = 0; i < captchaNumber.length(); i++) {
+                int digit = Character.getNumericValue(captchaNumber.charAt(i));
+                captchaDisplay.append(DIGITS[digit][row]).append("  ");
+            }
+            captchaDisplay.append("\n");
+        }
+        return captchaDisplay.toString();
+    }
+
 
 }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseHelper {
-    private static final String DATABASE_URL = "jdbc:sqlite:G:/Karshenasi/Codes/oop/Project-CityWars/src/database/mydb.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/database/mydb.db";
 
     static {
         try {
@@ -134,15 +134,17 @@ public class DatabaseHelper {
         }
     }
     public static boolean changeUsername(String oldUsername, String newUsername) {
-        String query = "UPDATE users SET username = ? WHERE username = ?";
-        try (Connection conn = DatabaseHelper.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, newUsername);
-            pstmt.setString(2, oldUsername);
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(!newUsername.equals("")) {
+            String query = "UPDATE users SET username = ? WHERE username = ?";
+            try (Connection conn = DatabaseHelper.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setString(1, newUsername);
+                pstmt.setString(2, oldUsername);
+                int rowsAffected = pstmt.executeUpdate();
+                return rowsAffected > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
