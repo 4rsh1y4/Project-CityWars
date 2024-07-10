@@ -31,7 +31,7 @@
             <Image url="@bet.png" />
          </image>
       </ImageView>
-      <TextField fx:id="texxt" scaleX="0.8" scaleY="1.3" translateY="90.0" GridPane.columnIndex="1" />
-      <Label scaleX="2.0" scaleY="2.0" text="Not enough money" textAlignment="CENTER" textFill="#2210c7" translateX="100.0" translateY="130.0" GridPane.columnIndex="1" />
+      <TextField fx:id="numberInput" onAction="#handleNumberInput" scaleX="0.8" scaleY="1.3" translateY="90.0" GridPane.columnIndex="1" />
+      <Label fx:id="warningLabel" scaleX="2.0" scaleY="2.0" text="Not enough money" textAlignment="CENTER" textFill="#2210c7" translateX="100.0" translateY="130.0" visible="false" GridPane.columnIndex="1" />
    </children>
 </GridPane>

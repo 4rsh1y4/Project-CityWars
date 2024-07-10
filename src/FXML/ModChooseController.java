@@ -50,7 +50,7 @@ public class ModChooseController {
     }
     @FXML
     private void handleNextButton() {
-        if((mod ==2 && betValue!=-1)|| mod==1)
+        if((mod ==2 && betValue!=-1 && betValue<50)|| mod==1)
         {try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
             Parent root = loader.load();
@@ -63,21 +63,19 @@ public class ModChooseController {
         }
     }
     @FXML
-    private void initialize() {
-        numberInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                int value = Integer.parseInt(newValue);
-                if (value < 50) {
-                    warningLabel.setText("Not Enough money");
-                    warningLabel.setVisible(true);
-                } else {
-                    warningLabel.setVisible(false);
-                }
-            } catch (NumberFormatException e) {
-                warningLabel.setText("Please enter a valid number");
+    private void handleNumberInput() {
+        try {
+            int value = Integer.parseInt(numberInput.getText());
+            if (value < 50) {
+                warningLabel.setText("Not enough money");
                 warningLabel.setVisible(true);
+            } else {
+                warningLabel.setVisible(false);
             }
-        });
+        } catch (NumberFormatException e) {
+            warningLabel.setText("Please enter a valid number");
+            warningLabel.setVisible(true);
+        }
     }
 
 }
