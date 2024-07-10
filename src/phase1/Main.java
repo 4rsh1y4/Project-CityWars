@@ -9,8 +9,8 @@ import phase1.DatabaseHelper;
 
 public class Main extends Application {
     public static void main(String[] args){
-//        DatabaseHelper.loadCardsFromDatabase();
-//        DatabaseHelper.loadUsersFromDatabase();
+        DatabaseHelper.loadCardsFromDatabase();
+        DatabaseHelper.loadUsersFromDatabase();
 
         launch();
         //add random cards after sign up;

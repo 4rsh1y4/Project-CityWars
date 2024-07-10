@@ -70,6 +70,7 @@ public class User {
 
     public void setCoin(int coin) {
         this.coin = coin;
+        DatabaseHelper.changeCoin(username,coin);
     }
 
     public String setCardsToString() {
@@ -167,12 +168,13 @@ public class User {
             this.upgradeLevel();
         }
     }
-    public void upgradeListCardLevel(String code) {
-        for (Card c : this.cards) {
-            if (c.getCode().equals(code)) {
-                c.upgradeCard();
-            }
+
+    public void upgradeCardList(){
+        StringBuilder cardListString = new StringBuilder();
+        for(Card c : cards){
+            cardListString.append(c.getCode()).append(c.getLevel()).append(",");
         }
+        DatabaseHelper.changeUserCards(username, String.valueOf(cardListString));
     }
 
 }
