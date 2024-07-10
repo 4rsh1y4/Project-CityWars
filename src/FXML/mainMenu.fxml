@@ -194,7 +194,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <Label fx:id="promptLabel" layoutX="39.0" layoutY="75.0" prefHeight="18.0" prefWidth="164.0" textFill="WHITE">
+                  <Label fx:id="promptLabel" layoutX="65.0" layoutY="56.0" prefHeight="90.0" prefWidth="210.0" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>

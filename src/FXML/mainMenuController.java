@@ -458,7 +458,7 @@ public class mainMenuController {
         profileMenuAnchor.setVisible(false);
     }
     public void closePromptAnchor(){
-        promptLabel.setStyle("-fx-background-color: white");
+        promptLabel.setStyle("");
         startProfileMenu();
     }
     public void startPromptAnchor1(){
@@ -466,21 +466,47 @@ public class mainMenuController {
         promptAnchor.setDisable(false);
         promptAnchor.setVisible(true);
         String username = changeUsername.getText();
-        if(DatabaseHelper.ExistUsername(username)){
-            promptLabel.setText(username+"is already taken!");
+        if (!username.matches("^[a-zA-Z0-9_]*$") || username.equals("")) {
+            promptLabel.setText("Username can have only "+"\n"+"letters and number and underscores!");
+            promptLabel.setStyle("-fx-background-color: red");
+
+        } else if(DatabaseHelper.ExistUsername(username)){
+            promptLabel.setText(username+" is already taken!");
             promptLabel.setStyle("-fx-background-color: red");
         }else{
-            promptLabel.setText("Your username changed to "+ username);
+            promptLabel.setText("Your username changed"+"\n"+"to"+ username);
             DatabaseHelper.changeUsername(currentuser.getUsername(),username);
             currentuser.setUsername(username);
         }
-
     }
     public void startPromptAnchor2(){
+        promptAnchor.toFront();
+        promptAnchor.setDisable(false);
+        promptAnchor.setVisible(true);
+        String email = changeEmail.getText();
+        if (!email.matches("^[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\\.(com)$") || email.equals("")) {
+            promptLabel.setText("Invalid email format!");
+            promptLabel.setStyle("-fx-background-color: red");
+        }else{
+            promptLabel.setText("Your email changed to"+"\n"+email);
+            DatabaseHelper.changeEmail(currentuser.getUsername(),email);
+            currentuser.setEmail(email);
+        }
 
     }
     public void startPromptAnchor3(){
-
+        promptAnchor.toFront();
+        promptAnchor.setDisable(false);
+        promptAnchor.setVisible(true);
+        String nickname = changeNickname.getText();
+        if (DatabaseHelper.ExistsNickname(nickname) || nickname.equals("")) {
+            promptLabel.setStyle("-fx-background-color: red");
+            promptLabel.setText(nickname + " is already taken!");
+        } else {
+            promptLabel.setText("Your nickname change to"+"\n"+nickname);
+            DatabaseHelper.changeNickname(currentuser.getUsername(),nickname);
+            currentuser.setNickname(nickname);
+        }
     }
 
 
