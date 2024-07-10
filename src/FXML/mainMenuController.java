@@ -241,8 +241,8 @@ public class mainMenuController {
     @FXML private void displayUserCards(User user) {
         cardContainer.getChildren().clear();
         for (Card card : user.getCards()) {
+            StackPane cardPane = new StackPane();
             if (card.getType().equals("a")) {
-                StackPane cardPane = new StackPane();
 
                 ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
                 cardImageView.setFitHeight(153);
@@ -280,6 +280,24 @@ public class mainMenuController {
                     cardImageView.setOpacity(0.5);
                 }
                 cardContainer.getChildren().add(cardPane);
+            }else{
+                ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
+                cardImageView.setFitHeight(153);
+                cardImageView.setFitWidth(100);
+                cardImageView.setStyle("-fx-background-radius: 20");
+                cardImageView.setOnMouseClicked(event -> handleCardClick(card));
+
+                Label CostLabel = new Label(String.valueOf(card.getUpgradeCost()));
+                CostLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                CostLabel.setTextFill(Color.BLACK);
+                CostLabel.setStyle("-fx-background-color: gold; -fx-alignment: center; -fx-background-radius: 20;");
+                CostLabel.setPrefSize(50,10);
+                StackPane.setAlignment(CostLabel, Pos.BOTTOM_CENTER);
+                StackPane.setMargin(CostLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+
+                cardPane.getChildren().addAll(cardImageView,CostLabel);
+                cardContainer.getChildren().add(cardPane);
+
             }
         }
     }
