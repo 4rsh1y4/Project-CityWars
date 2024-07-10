@@ -4,15 +4,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -31,8 +34,7 @@ import java.util.List;
 public class mainMenuController {
     private User currentuser = new User();
     private MediaPlayer mediaPlayer;
-    private Slider volumeSlider;
-    private ComboBox<String> trackSelector;
+
 
 
     @FXML  public void init(){
@@ -50,6 +52,9 @@ public class mainMenuController {
         shopMenuAnchor.toBack();
         shopMenuAnchor.setVisible(false);
         shopMenuAnchor.setDisable(true);
+        settingMenuAnchor.toBack();
+        settingMenuAnchor.setVisible(false);
+        settingMenuAnchor.setDisable(true);
 
     }
 
@@ -92,8 +97,12 @@ public class mainMenuController {
     @FXML private ScrollPane scrollPane;
     @FXML private HBox cardContainer2;
     @FXML private ScrollPane scrollPane2;
-
-
+//SettingMenu
+    @FXML private Slider volumeSlider;
+    @FXML private ComboBox<String> trackSelector;
+    @FXML private Button settingMenuButton;
+    @FXML private AnchorPane settingMenuAnchor;
+    @FXML private ImageView settingMenuClose;
 
     //startGame
     public void startGame(){
@@ -344,6 +353,58 @@ public class mainMenuController {
         }
         displayUserCards(currentuser);
         currentuser.upgradeCardList();
+    }
+
+    //SettingMenu
+    public void startSettinMenu(){
+        settingMenuAnchor.toFront();
+        settingMenuAnchor.setVisible(true);
+        settingMenuAnchor.setDisable(false);
+        volumeSlider = new Slider(0, 1, 0.5);
+        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+
+        trackSelector = new ComboBox<>();
+        trackSelector.getItems().addAll("Track 1", "Track 2", "Track 3");
+        trackSelector.getSelectionModel().selectFirst();
+        trackSelector.setOnAction(this::changeTrack);
+
+        VBox settingsMenu = new VBox(10);
+        settingsMenu.setPadding(new Insets(10));
+        settingsMenu.setAlignment(Pos.CENTER);
+        settingsMenu.getChildren().addAll(new Label("Volume:"), volumeSlider, new Label("Track:"), trackSelector);
+    }
+    public void setSound(DragEvent event){
+        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+    }
+    public void changeTrack(ActionEvent event) {
+        String selectedTrack = trackSelector.getSelectionModel().getSelectedItem();
+        String trackpath = "";
+
+        switch (selectedTrack) {
+            case "Track 1":
+                trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3";
+                break;
+            case "Track 2":
+                trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/2song.mp3";
+                break;
+            case "Track 3":
+                trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3";
+                break;
+        }
+
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+
+        Media media = new Media(new File(trackpath).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+        mediaPlayer.play();
+    }
+    public void closeSettingMenu(MouseEvent event){
+        settingMenuAnchor.toBack();
+        settingMenuAnchor.setVisible(false);
+        settingMenuAnchor.setDisable(true);
     }
 
 }

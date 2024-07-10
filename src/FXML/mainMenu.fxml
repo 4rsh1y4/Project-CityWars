@@ -2,10 +2,13 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,6 +16,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.mainMenuController">
@@ -126,7 +130,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="120.0" layoutY="341.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
+      <Button fx:id="settingMenuButton" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="341.0" mnemonicParsing="false" onAction="#startSettinMenu" style="-fx-background-color: #36aa63;" text="Setting Menu">
          <font>
             <Font size="16.0" />
          </font>
@@ -146,6 +150,32 @@
             <Image url="@../resources/default.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="settingMenuAnchor" layoutX="675.0" layoutY="333.0" prefHeight="170.0" prefWidth="138.0" style="-fx-background-color: pink; -fx-background-radius: 10;">
+         <children>
+            <ImageView fx:id="settingMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="162.0" layoutY="15.0" onMouseClicked="#closeSettingMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" spacing="10.0">
+               <padding>
+                  <Insets bottom="10" left="10" right="10" top="10" />
+               </padding>
+               <Label text="Volume:" />
+               <Slider fx:id="volumeSlider" max="1" min="0" onDragDropped="#setSound" value="0.5" />
+               <Label text="Track:" />
+               <ComboBox fx:id="trackSelector" onAction="#changeTrack">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Track 1" />
+                        <String fx:value="Track 2" />
+                        <String fx:value="Track 3" />
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+            </VBox>
+         </children>
+      </AnchorPane>
 
    </children>
 </AnchorPane>
