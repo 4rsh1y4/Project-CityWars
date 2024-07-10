@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Game {
     private Player player1;
     int betCoin;
+    int p =2;
     private boolean mod = false;
     private Player player2;
     private User loser;
@@ -79,6 +80,11 @@ public class Game {
             else if (placeMatcher.matches()) {
                 int cardNumber = Integer.parseInt(placeMatcher.group(1));
                 int blockIndex = Integer.parseInt(placeMatcher.group(2));
+                if(playingPlayer.getHand().get(cardNumber - 1).getType().equals(playingPlayer.getHand().get(2).getType()) && playingPlayer.getHand().size()==5 && random.nextInt(p)==0)
+                {
+                    playingPlayer.getHand().get(cardNumber - 1).setCardAttackDefence(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()*2);
+                    playingPlayer.getHand().get(cardNumber - 1).setPlayerDamage(playingPlayer.getHand().get(cardNumber - 1).getPlayerDamage()*2);
+                }
                 if(playingPlayer.getHand().get(cardNumber - 1).getType().equals("b"))
                 {
                     if(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()==99)
@@ -202,7 +208,37 @@ public class Game {
                             }
                         }
                     }
-
+                    for(int kk = 0 ;kk < 21 ; kk ++)
+                    {
+                        boolean yes = false;
+                        if(theOtherPlayer.getBoard()[kk]!=null && theOtherPlayer.ruined[kk])
+                        {
+                            yes =true;
+                            for(int kkk = kk+1 ; kkk<21 ; kkk++)
+                            {
+                                if(theOtherPlayer.getBoard()[kkk].getName().equals(theOtherPlayer.getBoard()[kk].getName()) )
+                                    if(!theOtherPlayer.ruined[kkk])
+                                        yes =false;
+                                else
+                                    break;
+                                kk=kkk;
+                            }
+                            if(yes)
+                            {
+                                if(random.nextBoolean())
+                                {
+                                    playingPlayer.getUser().setCoin( playingPlayer.getUser().getCoin()+10);
+                                }
+                                else
+                                {
+                                    if(playingPlayer.hand.size()<=5)
+                                    {
+                                        playingPlayer.addToHand(first.cardChooser());
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -274,6 +310,7 @@ public class Game {
         displayGame();
         startGame();
         while (!endGame) {
+            displayGame();
             if(currentPlayer)
                 nextTurn(player1,player2);
             else
