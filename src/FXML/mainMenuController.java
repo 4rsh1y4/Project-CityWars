@@ -13,13 +13,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import phase1.*;
 import phase1.MatchDetail;
+
+import java.io.File;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,8 +30,17 @@ import java.util.List;
 
 public class mainMenuController {
     private User currentuser = new User();
+    private MediaPlayer mediaPlayer;
+    private Slider volumeSlider;
+    private ComboBox<String> trackSelector;
+
 
     @FXML  public void init(){
+        Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3").toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+
         startGameAnchor.toBack();
         startGameAnchor.setDisable(true);
         startGameAnchor.setVisible(false);
@@ -78,6 +90,8 @@ public class mainMenuController {
     @FXML private ImageView MenuAnchorClose;
     @FXML private HBox cardContainer;
     @FXML private ScrollPane scrollPane;
+    @FXML private HBox cardContainer2;
+    @FXML private ScrollPane scrollPane2;
 
 
 
@@ -233,75 +247,88 @@ public class mainMenuController {
         }
 
     }
-    @FXML public void closeShopMenu(ActionEvent event){
+    @FXML public void closeShopMenu(MouseEvent event){
         shopMenuAnchor.toBack();
         shopMenuAnchor.setDisable(true);
         shopMenuAnchor.setVisible(false);
     }
     @FXML private void displayUserCards(User user) {
         cardContainer.getChildren().clear();
-        for (Card card : user.getCards()) {
+        cardContainer2.getChildren().clear();
+
+        for (Card card : Card.cards) {
             StackPane cardPane = new StackPane();
-            if (card.getType().equals("a")) {
+            ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
+            cardImageView.setFitHeight(153);
+            cardImageView.setFitWidth(100);
+            cardImageView.setStyle("-fx-background-radius: 20");
 
-                ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
-                cardImageView.setFitHeight(153);
-                cardImageView.setFitWidth(100);
-                cardImageView.setStyle("-fx-background-radius: 20");
-                cardImageView.setOnMouseClicked(event -> handleCardClick(card));
+            Label CostLabel = new Label(String.valueOf(card.getUpgradeCost()));
+            CostLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+            CostLabel.setTextFill(Color.BLACK);
+            CostLabel.setStyle("-fx-background-color: gold; -fx-alignment: center; -fx-background-radius: 20;");
+            CostLabel.setPrefSize(50, 10);
+            StackPane.setAlignment(CostLabel, Pos.BOTTOM_CENTER);
+            StackPane.setMargin(CostLabel, new javafx.geometry.Insets(0, 0, 0, 0));
 
-                Label attackDefenseLabel = new Label(String.valueOf(card.getCardAttackDefence()));
-                attackDefenseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-                attackDefenseLabel.setTextFill(Color.RED);
-                attackDefenseLabel.setStyle("-fx-background-color: yellow; -fx-alignment: center;-fx-background-radius: 20;");
-                attackDefenseLabel.setPrefSize(30, 30);
-                StackPane.setAlignment(attackDefenseLabel, Pos.TOP_LEFT);
-                StackPane.setMargin(attackDefenseLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+            cardPane.getChildren().addAll(cardImageView, CostLabel);
 
-                Label playerDamageLabel = new Label(String.valueOf(card.getPlayerDamage()));
-                playerDamageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-                playerDamageLabel.setTextFill(Color.RED);
-                playerDamageLabel.setStyle("-fx-background-color: green; -fx-alignment: center;-fx-background-radius: 20;");
-                playerDamageLabel.setPrefSize(30, 30);
-                StackPane.setAlignment(playerDamageLabel, Pos.TOP_RIGHT);
-                StackPane.setMargin(playerDamageLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+            if (user.getCards().contains(card)) {
+                if (card.getType().equals("a")) {
+                    Label attackDefenseLabel = new Label(String.valueOf(card.getCardAttackDefence()));
+                    attackDefenseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                    attackDefenseLabel.setTextFill(Color.RED);
+                    attackDefenseLabel.setStyle("-fx-background-color: yellow; -fx-alignment: center; -fx-background-radius: 20;");
+                    attackDefenseLabel.setPrefSize(30, 30);
+                    StackPane.setAlignment(attackDefenseLabel, Pos.TOP_LEFT);
+                    StackPane.setMargin(attackDefenseLabel, new javafx.geometry.Insets(0, 0, 0, 0));
 
-                Label CostLabel = new Label(String.valueOf(card.getUpgradeCost()));
-                CostLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-                CostLabel.setTextFill(Color.BLACK);
-                CostLabel.setStyle("-fx-background-color: gold; -fx-alignment: center; -fx-background-radius: 20;");
-                CostLabel.setPrefSize(50,10);
-                StackPane.setAlignment(CostLabel, Pos.BOTTOM_CENTER);
-                StackPane.setMargin(CostLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+                    Label playerDamageLabel = new Label(String.valueOf(card.getPlayerDamage()));
+                    playerDamageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                    playerDamageLabel.setTextFill(Color.RED);
+                    playerDamageLabel.setStyle("-fx-background-color: green; -fx-alignment: center; -fx-background-radius: 20;");
+                    playerDamageLabel.setPrefSize(30, 30);
+                    StackPane.setAlignment(playerDamageLabel, Pos.TOP_RIGHT);
+                    StackPane.setMargin(playerDamageLabel, new javafx.geometry.Insets(0, 0, 0, 0));
 
-                cardPane.getChildren().addAll(cardImageView, attackDefenseLabel, playerDamageLabel,CostLabel);
-                if(card.getUpgradeLevel()> currentuser.getLevel() || card.getUpgradeCost()>currentuser.getCoin()){
+                    cardPane.getChildren().addAll(attackDefenseLabel, playerDamageLabel);
+                }
+
+                cardImageView.setOnMouseClicked(event -> handleUnCardClick(card));
+
+                if (card.getUpgradeLevel() > user.getLevel() || card.getUpgradeCost() > user.getCoin()) {
                     cardPane.setDisable(true);
                     cardImageView.setOpacity(0.5);
                 }
+
                 cardContainer.getChildren().add(cardPane);
-            }else{
-                ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
-                cardImageView.setFitHeight(153);
-                cardImageView.setFitWidth(100);
-                cardImageView.setStyle("-fx-background-radius: 20");
-                cardImageView.setOnMouseClicked(event -> handleCardClick(card));
+            } else {
+                if (card.getType().equals("a")) {
+                    Label attackDefenseLabel = new Label(String.valueOf(card.getCardAttackDefence()));
+                    attackDefenseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                    attackDefenseLabel.setTextFill(Color.RED);
+                    attackDefenseLabel.setStyle("-fx-background-color: yellow; -fx-alignment: center; -fx-background-radius: 20;");
+                    attackDefenseLabel.setPrefSize(30, 30);
+                    StackPane.setAlignment(attackDefenseLabel, Pos.TOP_LEFT);
+                    StackPane.setMargin(attackDefenseLabel, new javafx.geometry.Insets(0, 0, 0, 0));
 
-                Label CostLabel = new Label(String.valueOf(card.getUpgradeCost()));
-                CostLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-                CostLabel.setTextFill(Color.BLACK);
-                CostLabel.setStyle("-fx-background-color: gold; -fx-alignment: center; -fx-background-radius: 20;");
-                CostLabel.setPrefSize(50,10);
-                StackPane.setAlignment(CostLabel, Pos.BOTTOM_CENTER);
-                StackPane.setMargin(CostLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+                    Label playerDamageLabel = new Label(String.valueOf(card.getPlayerDamage()));
+                    playerDamageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                    playerDamageLabel.setTextFill(Color.RED);
+                    playerDamageLabel.setStyle("-fx-background-color: green; -fx-alignment: center; -fx-background-radius: 20;");
+                    playerDamageLabel.setPrefSize(30, 30);
+                    StackPane.setAlignment(playerDamageLabel, Pos.TOP_RIGHT);
+                    StackPane.setMargin(playerDamageLabel, new javafx.geometry.Insets(0, 0, 0, 0));
 
-                cardPane.getChildren().addAll(cardImageView,CostLabel);
-                cardContainer.getChildren().add(cardPane);
+                    cardPane.getChildren().addAll(attackDefenseLabel, playerDamageLabel);
+                }
 
+                cardImageView.setOnMouseClicked(event -> handlenCardClick(card));
+                cardContainer2.getChildren().add(cardPane);
             }
         }
     }
-    public void handleCardClick(Card card) {
+    public void handleUnCardClick(Card card) {
         System.out.println("Card clicked: " + card.getName() + "with level: "+card.getLevel() +" att/def: "+card.getCardAttackDefence()+" plaDam: "+card.getPlayerDamage());
         currentuser.setCoin(currentuser.getCoin()-card.getUpgradeCost());
         card.upgradeCard();
@@ -309,4 +336,14 @@ public class mainMenuController {
         currentuser.upgradeCardList();
         displayUserCards(currentuser);
     }
+    public void handlenCardClick(Card card) {
+        System.out.println("Card clicked: " + card.getName() + "with level: "+card.getLevel() +" att/def: "+card.getCardAttackDefence()+" plaDam: "+card.getPlayerDamage());
+        currentuser.setCoin(currentuser.getCoin()-card.getUpgradeCost());
+        if (!currentuser.getCards().contains(card)) {
+            currentuser.getCards().add(card);
+        }
+        displayUserCards(currentuser);
+        currentuser.upgradeCardList();
+    }
+
 }

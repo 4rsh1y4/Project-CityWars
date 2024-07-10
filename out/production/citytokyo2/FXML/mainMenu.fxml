@@ -17,6 +17,27 @@
 
 <AnchorPane prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.mainMenuController">
    <children>
+      <AnchorPane fx:id="shopMenuAnchor" layoutX="168.0" layoutY="23.0" prefHeight="472.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
+         <children>
+               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="40.0" prefHeight="187.0" prefWidth="538.0">
+                  <HBox fx:id="cardContainer" spacing="10.0" />
+               </ScrollPane>
+            <ScrollPane fx:id="scrollPane2" layoutX="14.0" layoutY="272.0" prefHeight="187.0" prefWidth="538.0">
+               <content>
+                  <HBox fx:id="cardContainer2" spacing="10.0" />
+               </content>
+            </ScrollPane>
+            <Label layoutX="32.0" layoutY="241.0" prefHeight="26.0" prefWidth="127.0" text="Locked Cards">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="GameAnchorClose1" fitHeight="26.0" fitWidth="28.0" layoutX="521.0" layoutY="13.0" onMouseClicked="#closeShopMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
       <AnchorPane fx:id="gameHistoryAnchor" layoutX="168.0" layoutY="23.0" prefHeight="410.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
          <children>
             <ImageView fx:id="HistoryAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="520.0" layoutY="24.0" onMouseClicked="#closeGameHistory" pickOnBounds="true" preserveRatio="true">
@@ -105,7 +126,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="371.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
+      <Button alignment="CENTER_RIGHT" layoutX="120.0" layoutY="341.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
          <font>
             <Font size="16.0" />
          </font>
@@ -125,17 +146,6 @@
             <Image url="@../resources/default.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="shopMenuAnchor" layoutX="344.0" layoutY="96.0" prefHeight="474.0" prefWidth="566.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
-         <children>
-               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="49.0" prefHeight="187.0" prefWidth="538.0">
-                  <HBox fx:id="cardContainer" spacing="10.0" />
-               </ScrollPane>
-            <Label layoutX="42.0" layoutY="22.0" prefHeight="26.0" prefWidth="127.0" text="Unlocked Cards">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
 
    </children>
 </AnchorPane>
