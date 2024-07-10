@@ -537,22 +537,13 @@ public class commandmanager {
                     startGame();
                 }
             }else {
-                System.out.println("Select the mode you want to play:");
-                System.out.println("1. Two person mode:");
-                System.out.println("2. Betting mode");
 
-                String inn = scanner.nextLine();
                 try {
-                    int in = Integer.parseInt(inn);
-                    if (in == 1) {
+
                         Multiplay();
-                    } else if (in == 2) {
-                        Bett();
-                    } else if (in == 12) {
-                        startGame();
-                    } else {
-                        System.out.println("Invalid");
-                    }
+
+
+
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid input, please enter a number.");
                 }
