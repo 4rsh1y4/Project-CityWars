@@ -4,14 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import phase1.MatchDetail;
-import phase1.MatchDetailWrapper;
-import phase1.User;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import phase1.*;
 import phase1.MatchDetail;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,12 +29,16 @@ public class mainMenuController {
     private User currentuser = new User();
 
     @FXML  public void init(){
-        System.out.println(currentuser.getUsername());
+        startGameAnchor.toBack();
         startGameAnchor.setDisable(true);
         startGameAnchor.setVisible(false);
         gameHistoryAnchor.toBack();
         gameHistoryAnchor.setVisible(false);
         gameHistoryAnchor.setDisable(true);
+        shopMenuAnchor.toBack();
+        shopMenuAnchor.setVisible(false);
+        shopMenuAnchor.setDisable(true);
+
     }
 
     public void setCurrentuser(User currentuser) {
@@ -64,9 +73,13 @@ public class mainMenuController {
     private int currentPage = 1;
     private final int pageSize = 3;
 //ShopManu
-    @FXML Button shopMenuButton;
-    @FXML AnchorPane shopMenuAnchor;
-    @FXML ImageView MenuAnchorClose;
+    @FXML private Button shopMenuButton;
+    @FXML private AnchorPane shopMenuAnchor;
+    @FXML private ImageView MenuAnchorClose;
+    @FXML private HBox cardContainer;
+    @FXML private ScrollPane scrollPane;
+
+
 
     //startGame
     public void startGame(){
@@ -215,10 +228,67 @@ public class mainMenuController {
         shopMenuAnchor.toFront();
         shopMenuAnchor.setDisable(false);
         shopMenuAnchor.setVisible(true);
+        if(currentuser!=null){
+            displayUserCards(currentuser);
+        }
+
     }
     @FXML public void closeShopMenu(ActionEvent event){
         shopMenuAnchor.toBack();
         shopMenuAnchor.setDisable(true);
         shopMenuAnchor.setVisible(false);
+    }
+    @FXML private void displayUserCards(User user) {
+        cardContainer.getChildren().clear();
+        for (Card card : user.getCards()) {
+            if (card.getType().equals("a")) {
+                StackPane cardPane = new StackPane();
+
+                ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
+                cardImageView.setFitHeight(153);
+                cardImageView.setFitWidth(100);
+                cardImageView.setStyle("-fx-background-radius: 20");
+                cardImageView.setOnMouseClicked(event -> handleCardClick(card));
+
+                Label attackDefenseLabel = new Label(String.valueOf(card.getCardAttackDefence()));
+                attackDefenseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                attackDefenseLabel.setTextFill(Color.RED);
+                attackDefenseLabel.setStyle("-fx-background-color: yellow; -fx-alignment: center;-fx-background-radius: 20;");
+                attackDefenseLabel.setPrefSize(30, 30);
+                StackPane.setAlignment(attackDefenseLabel, Pos.TOP_LEFT);
+                StackPane.setMargin(attackDefenseLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+
+                Label playerDamageLabel = new Label(String.valueOf(card.getPlayerDamage()));
+                playerDamageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                playerDamageLabel.setTextFill(Color.RED);
+                playerDamageLabel.setStyle("-fx-background-color: green; -fx-alignment: center;-fx-background-radius: 20;");
+                playerDamageLabel.setPrefSize(30, 30);
+                StackPane.setAlignment(playerDamageLabel, Pos.TOP_RIGHT);
+                StackPane.setMargin(playerDamageLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+
+                Label CostLabel = new Label(String.valueOf(card.getUpgradeCost()));
+                CostLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                CostLabel.setTextFill(Color.BLACK);
+                CostLabel.setStyle("-fx-background-color: gold; -fx-alignment: center; -fx-background-radius: 20;");
+                CostLabel.setPrefSize(50,10);
+                StackPane.setAlignment(CostLabel, Pos.BOTTOM_CENTER);
+                StackPane.setMargin(CostLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+
+                cardPane.getChildren().addAll(cardImageView, attackDefenseLabel, playerDamageLabel,CostLabel);
+                if(card.getUpgradeLevel()> currentuser.getLevel() || card.getUpgradeCost()>currentuser.getCoin()){
+                    cardPane.setDisable(true);
+                    cardImageView.setOpacity(0.5);
+                }
+                cardContainer.getChildren().add(cardPane);
+            }
+        }
+    }
+    public void handleCardClick(Card card) {
+        System.out.println("Card clicked: " + card.getName() + "with level: "+card.getLevel() +" att/def: "+card.getCardAttackDefence()+" plaDam: "+card.getPlayerDamage());
+        currentuser.setCoin(currentuser.getCoin()-card.getUpgradeCost());
+        card.upgradeCard();
+//        System.out.println("Card clicked: " + card.getName() + "with level: "+card.getLevel()+" att/def: "+card.getCardAttackDefence()+" plaDam: "+card.getPlayerDamage());
+        currentuser.upgradeCardList();
+        displayUserCards(currentuser);
     }
 }

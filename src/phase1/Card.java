@@ -48,7 +48,7 @@ public class Card {
         this.upgradeCost = upgradeCost;
         this.character = character;
         this.type = type;
-        this.url = "/resources/"+type+","+name+".png";
+        this.url = "/resources/"+code+","+name+".png";
         cards.add(this);
     }
     public static Card getAcard(String code){
@@ -60,11 +60,13 @@ public class Card {
         return null;
     }
 
-    public void setCardLevel(int level)
+    public void setCardLevel(int newlevel)
     {
-        this.level = level;
-        this.playerDamage += (level-1)*2;
-        this.cardAttackDefence += (level-1)*duration;
+        this.upgradeLevel = newlevel + 1 ;
+        this.upgradeCost *= Math.pow(1.25,newlevel-1);
+        this.level = newlevel;
+        this.playerDamage += (level-1)*duration;
+        this.cardAttackDefence += (level-1)*2;
     }
 
     @Override

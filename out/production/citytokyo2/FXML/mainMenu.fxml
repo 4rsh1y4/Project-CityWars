@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -63,7 +64,7 @@
                <Button onAction="#handleSort" text="Sort" />
             </HBox>
             <Label fx:id="wherepage" alignment="CENTER" layoutX="192.0" layoutY="205.0" prefHeight="18.0" prefWidth="210.0" />
-            <TextField fx:id="pageTextField" layoutX="249.0" layoutY="243.0" onAction="#goToPage" prefHeight="26.0" prefWidth="82.0" promptText="Go to page:" />
+            <TextField fx:id="pageTextField" alignment="CENTER" layoutX="256.0" layoutY="242.0" onAction="#goToPage" prefHeight="26.0" prefWidth="82.0" promptText="Go to page:" />
             <Button layoutX="370.0" layoutY="243.0" onAction="#handleNextPage" text="Next" />
             <Button layoutX="162.0" layoutY="243.0" onAction="#handlePreviousPage" text="Previous" />
          </children>
@@ -99,7 +100,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="334.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
+      <Button fx:id="shopMenuButton" alignment="CENTER_RIGHT" layoutX="118.0" layoutY="273.0" mnemonicParsing="false" onAction="#startShopMenu" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #36aa63;" text="Shop Menu">
          <font>
             <Font size="16.0" />
          </font>
@@ -119,10 +120,22 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="837.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/default.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="shopMenuAnchor" layoutX="344.0" layoutY="96.0" prefHeight="474.0" prefWidth="566.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
+         <children>
+               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="49.0" prefHeight="187.0" prefWidth="538.0">
+                  <HBox fx:id="cardContainer" spacing="10.0" />
+               </ScrollPane>
+            <Label layoutX="42.0" layoutY="22.0" prefHeight="26.0" prefWidth="127.0" text="Unlocked Cards">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+
    </children>
 </AnchorPane>
