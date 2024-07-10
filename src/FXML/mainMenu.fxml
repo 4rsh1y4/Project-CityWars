@@ -40,27 +40,6 @@
             </SplitMenuButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="shopMenuAnchor" layoutX="168.0" layoutY="23.0" prefHeight="472.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
-         <children>
-               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="40.0" prefHeight="187.0" prefWidth="538.0">
-                  <HBox fx:id="cardContainer" spacing="10.0" />
-               </ScrollPane>
-            <ScrollPane fx:id="scrollPane2" layoutX="14.0" layoutY="272.0" prefHeight="187.0" prefWidth="538.0">
-               <content>
-                  <HBox fx:id="cardContainer2" spacing="10.0" />
-               </content>
-            </ScrollPane>
-            <Label layoutX="32.0" layoutY="241.0" prefHeight="26.0" prefWidth="127.0" text="Locked Cards">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="GameAnchorClose1" fitHeight="26.0" fitWidth="28.0" layoutX="521.0" layoutY="13.0" onMouseClicked="#closeShopMenu" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/cross.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
       <AnchorPane fx:id="gameHistoryAnchor" layoutX="168.0" layoutY="23.0" prefHeight="410.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
          <children>
             <ImageView fx:id="HistoryAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="520.0" layoutY="24.0" onMouseClicked="#closeGameHistory" pickOnBounds="true" preserveRatio="true">
@@ -113,52 +92,6 @@
             <Button layoutX="162.0" layoutY="243.0" onAction="#handlePreviousPage" text="Previous" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="startGameAnchor" layoutX="168.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
-         <children>
-            <Button fx:id="game1" layoutX="74.0" layoutY="64.0" mnemonicParsing="false" text="Button" />
-            <Button fx:id="game2" layoutX="74.0" layoutY="100.0" mnemonicParsing="false" text="Button" />
-            <ImageView fx:id="GameAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="149.0" layoutY="25.0" onMouseClicked="#closeGame" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/cross.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <Label fx:id="prompt" alignment="CENTER" layoutX="320.0" layoutY="23.0" prefHeight="20.0" prefWidth="307.0">
-         <font>
-            <Font name="System Italic" size="16.0" />
-         </font>
-      </Label>
-      <Button fx:id="startGameButton" alignment="CENTER_RIGHT" layoutX="114.0" layoutY="118.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-color: #36aa63; -fx-background-radius: 10;" text="Start Game">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="logOutButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="415.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #36aa63;" text="Log Out">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="gameHistoryButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="218.0" mnemonicParsing="false" onAction="#startGameHistory" style="-fx-background-color: #36aa63;" text="Game History">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="shopMenuButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="273.0" mnemonicParsing="false" onAction="#startShopMenu" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #36aa63;" text="Shop Menu">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="settingMenuButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="326.0" mnemonicParsing="false" onAction="#startSettinMenu" style="-fx-background-color: #36aa63;" text="Setting Menu">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="23.0" onMouseClicked="#startProfileMenu" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/default.png" />
-         </image>
-      </ImageView>
       <AnchorPane fx:id="profileMenuAnchor" layoutX="98.0" layoutY="18.0" prefHeight="541.0" prefWidth="718.0" style="-fx-background-color: pink; -fx-background-radius: 40;">
          <children>
             <AnchorPane fx:id="promptAnchor" layoutX="221.0" layoutY="127.0" prefHeight="242.0" prefWidth="242.0" style="-fx-background-color: #101010; -fx-background-radius: 40;">
@@ -218,6 +151,118 @@
             <TextField fx:id="captchaText" layoutX="467.0" layoutY="457.0" onAction="#changePass" prefHeight="26.0" prefWidth="78.0" promptText="Answer" />
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="startGameAnchor" layoutX="168.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
+         <children>
+            <Button fx:id="game1" layoutX="74.0" layoutY="64.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="game2" layoutX="74.0" layoutY="100.0" mnemonicParsing="false" text="Button" />
+            <ImageView fx:id="GameAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="149.0" layoutY="25.0" onMouseClicked="#closeGame" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="startGameButton" alignment="CENTER_RIGHT" layoutX="114.0" layoutY="118.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-color: #36aa63; -fx-background-radius: 10;" text="Start Game">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="logOutButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="415.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #36aa63;" text="Log Out">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="gameHistoryButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="218.0" mnemonicParsing="false" onAction="#startGameHistory" style="-fx-background-color: #36aa63;" text="Game History">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="shopMenuButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="273.0" mnemonicParsing="false" onAction="#startShopMenu" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #36aa63;" text="Shop Menu">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="settingMenuButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="326.0" mnemonicParsing="false" onAction="#startSettinMenu" style="-fx-background-color: #36aa63;" text="Setting Menu">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="23.0" onMouseClicked="#startProfileMenu" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/default.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="secondLoginAnchor" layoutX="80.0" layoutY="109.0" prefHeight="342.0" prefWidth="754.0" style="-fx-background-color: pink; -fx-background-radius: 50;">
+         <children>
+            <Label fx:id="prompt" alignment="CENTER" layoutX="296.0" layoutY="31.0" prefHeight="18.0" prefWidth="186.0" text="Second Player is not logged in!">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="207.0" layoutY="58.0" prefHeight="238.0" prefWidth="363.0" style="-fx-background-color: #212121; -fx-background-radius: 20;">
+               <children>
+                  <Button fx:id="login" layoutX="20.0" layoutY="182.0" mnemonicParsing="false" onAction="#Login" prefHeight="35.0" prefWidth="322.0" style="-fx-background-color: #76ff03; -fx-background-radius: 90;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Tahoma Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="textField" layoutX="86.0" layoutY="83.0" prefHeight="35.0" prefWidth="251.0" promptText="Username">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="133.0" layoutY="9.0" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Tahoma Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane layoutX="105.0" layoutY="56.0" prefHeight="7.0" prefWidth="156.0" style="-fx-background-color: #76ff03; -fx-background-radius: 90;" />
+                  <ImageView fitHeight="46.0" fitWidth="44.0" layoutX="33.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/userto_prev_ui.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="40.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/password.png" />
+                     </image>
+                  </ImageView>
+                  <PasswordField fx:id="passwordField" layoutX="86.0" layoutY="126.0" prefHeight="35.0" prefWidth="251.0" promptText="Password" />
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="profileMenuClose1" fitHeight="26.0" fitWidth="28.0" layoutX="717.0" layoutY="18.0" onMouseClicked="#closeLogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="shopMenuAnchor" layoutX="168.0" layoutY="23.0" prefHeight="472.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
+         <children>
+               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="40.0" prefHeight="187.0" prefWidth="538.0">
+                  <HBox fx:id="cardContainer" spacing="10.0" />
+               </ScrollPane>
+            <ScrollPane fx:id="scrollPane2" layoutX="14.0" layoutY="272.0" prefHeight="187.0" prefWidth="538.0">
+               <content>
+                  <HBox fx:id="cardContainer2" spacing="10.0" />
+               </content>
+            </ScrollPane>
+            <Label layoutX="32.0" layoutY="241.0" prefHeight="26.0" prefWidth="127.0" text="Locked Cards">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="GameAnchorClose1" fitHeight="26.0" fitWidth="28.0" layoutX="521.0" layoutY="13.0" onMouseClicked="#closeShopMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="32.0" layoutY="13.0" prefHeight="26.0" prefWidth="127.0" text="Unlocked Cards">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
 
    </children>
 </AnchorPane>

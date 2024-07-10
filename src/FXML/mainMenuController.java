@@ -1,5 +1,7 @@
 package FXML;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import phase1.*;
 import phase1.MatchDetail;
 
@@ -38,9 +41,15 @@ import java.util.Random;
 public class mainMenuController {
 
     private User currentuser = new User();
+    private User seconduser;
     private MediaPlayer mediaPlayer;
     private String captch ;
     private boolean captchadisplayed = false;
+
+    private int failedAttempts = 0;
+    private Timeline countdownTimeline;
+    private boolean isBanned = false;
+    private int countdownSeconds;
 
 
     private Stage stage;
@@ -70,6 +79,9 @@ public class mainMenuController {
         profileMenuAnchor.toBack();
         profileMenuAnchor.setDisable(true);
         profileMenuAnchor.setVisible(false);
+        secondLoginAnchor.toBack();
+        secondLoginAnchor.setDisable(true);
+        secondLoginAnchor.setVisible(false);
 
     }
 
@@ -178,11 +190,83 @@ public class mainMenuController {
     private PasswordField passfield2;
     @FXML private TextField captchaText;
 
+    @FXML private AnchorPane secondLoginAnchor;
+    @FXML private Button login;
+    @FXML private TextField textField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label prompt;
+
     //startGame
     public void startGame() {
-        startGameAnchor.toFront();
-        startGameAnchor.setDisable(false);
-        startGameAnchor.setVisible(true);
+        if(seconduser==null){
+            secondLoginAnchor.toFront();
+            secondLoginAnchor.setDisable(false);
+            secondLoginAnchor.setVisible(true);
+        }else {
+
+            startGameAnchor.toFront();
+            startGameAnchor.setDisable(false);
+            startGameAnchor.setVisible(true);
+        }
+    }
+    public void Login(){
+        if (isBanned) {
+            return;
+        }
+        String username = textField.getText();
+        String password = passwordField.getText();
+        if(!DatabaseHelper.checkUser(username,password)){
+            failedAttempts++;
+            login.setStyle("-fx-background-color: red");
+            prompt.setText("Incorrect username or password.");
+            passwordField.setText("");
+            passwordField.setPromptText("BANNED");
+            textField.setText("");
+            textField.setPromptText("BANNED");
+            isBanned = true;
+            int banDuration = failedAttempts * 5;
+            startCountdown(banDuration);
+        }else{
+            if(!DatabaseHelper.ExistUsername(username)){
+                prompt.setText("Username doesn't Exist!");
+                textField.setText("");
+                passwordField.setText("");
+            }else if(username.equals(currentuser.getUsername())){
+                prompt.setText("Can't use a user twice!");
+                textField.setText("");
+                passwordField.setText("");
+            }else {
+                seconduser = User.getUser(username);
+                failedAttempts = 0;
+                closeLogin();
+            }
+        }
+    }
+    public void closeLogin(){
+        secondLoginAnchor.toBack();
+        secondLoginAnchor.setDisable(true);
+        secondLoginAnchor.setVisible(false);
+    }
+    private void startCountdown(int seconds) {
+        countdownSeconds = seconds;
+        countdownTimeline = new Timeline();
+        countdownTimeline.setCycleCount(Timeline.INDEFINITE);
+
+        countdownTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
+            prompt.setText("Please wait " + (countdownSeconds-1) + " seconds before trying again.");
+            countdownSeconds--;
+
+            if (countdownSeconds <= 0) {
+                countdownTimeline.stop();
+                isBanned = false;
+                prompt.setText("");
+                login.setStyle("-fx-background-color:  #76ff03;");
+                textField.setPromptText("Username:");
+                passwordField.setPromptText("Password:");
+            }
+        }));
+
+        countdownTimeline.playFromStart();
 
     }
 
@@ -263,9 +347,10 @@ public class mainMenuController {
 
     @FXML
     private void handlePreviousPage() {
-        wherepage.setText(String.valueOf(currentPage));
 
         if (currentPage > 1) {
+            wherepage.setText(String.valueOf(currentPage));
+            pageTextField.setText(String.valueOf(currentPage));
             currentPage--;
             updateDisplayedMatches();
         } else {
@@ -275,8 +360,9 @@ public class mainMenuController {
 
     @FXML
     private void handleNextPage() {
-        wherepage.setText(String.valueOf(currentPage));
         if (currentPage * pageSize < matchDetails.size()) {
+            wherepage.setText(String.valueOf(currentPage));
+            pageTextField.setText(String.valueOf(currentPage));
             currentPage++;
             updateDisplayedMatches();
         } else {
