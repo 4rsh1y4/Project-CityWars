@@ -82,6 +82,7 @@ public class logInController {
                 root = loader.load();
                 mainMenuController mainController = loader.getController();
                 mainController.setCurrentuser(currentuser);
+                mainController.init();
                 stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
                 scene = new Scene(root);
                 stage.setScene(scene);
@@ -104,8 +105,8 @@ public class logInController {
                 isBanned = false;
                 prompt.setText("");
                 login.setStyle("-fx-background-color:  #76ff03;");
-                textField.setPromptText("");
-                passwordField.setPromptText("");
+                textField.setPromptText("Username:");
+                passwordField.setPromptText("Password:");
             }
         }));
 
