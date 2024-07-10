@@ -13,6 +13,7 @@ public class Card {
     private int level;
     private int character;
     private String type; //a for normal and b for spells
+    public String url;
     public static List<Card> cards = new ArrayList<>();
 
     public String getCode() {
@@ -47,6 +48,7 @@ public class Card {
         this.upgradeCost = upgradeCost;
         this.character = character;
         this.type = type;
+        this.url = "/resources/"+type+","+name+".png";
         cards.add(this);
     }
     public static Card getAcard(String code){

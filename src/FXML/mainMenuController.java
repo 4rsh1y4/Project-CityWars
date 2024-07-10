@@ -63,6 +63,10 @@ public class mainMenuController {
     private ObservableList<MatchDetail> displayedMatches;
     private int currentPage = 1;
     private final int pageSize = 3;
+//ShopManu
+    @FXML Button shopMenuButton;
+    @FXML AnchorPane shopMenuAnchor;
+    @FXML ImageView MenuAnchorClose;
 
     //startGame
     public void startGame(){
@@ -204,5 +208,17 @@ public class mainMenuController {
     }
     @FXML private int getTotalPages() {
         return (int) Math.ceil((double) matchDetails.size() / pageSize);
+    }
+
+    //ShopMenu
+    @FXML public void startShopMenu(ActionEvent event){
+        shopMenuAnchor.toFront();
+        shopMenuAnchor.setDisable(false);
+        shopMenuAnchor.setVisible(true);
+    }
+    @FXML public void closeShopMenu(ActionEvent event){
+        shopMenuAnchor.toBack();
+        shopMenuAnchor.setDisable(true);
+        shopMenuAnchor.setVisible(false);
     }
 }

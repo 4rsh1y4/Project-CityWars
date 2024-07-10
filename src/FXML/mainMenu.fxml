@@ -99,7 +99,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="334.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
+      <Button fx:id="shopMenuButton" alignment="CENTER_RIGHT" layoutX="118.0" layoutY="273.0" mnemonicParsing="false" onAction="#startShopMenu" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #36aa63;" text="Shop Menu">
          <font>
             <Font size="16.0" />
          </font>
@@ -119,10 +119,11 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="837.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/default.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="shopMenuAnchor" layoutX="344.0" layoutY="96.0" prefHeight="474.0" prefWidth="566.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;" />
    </children>
 </AnchorPane>
