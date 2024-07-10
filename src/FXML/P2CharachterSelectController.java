@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.*;
 public class P2CharachterSelectController {
 
     User user1 = new User();
@@ -14,6 +15,8 @@ public class P2CharachterSelectController {
 
     @FXML
     private ImageView imageView1;
+    @FXML
+    private Button backButton,nextButton;
 
     @FXML
     private ImageView imageView2;
@@ -24,6 +27,7 @@ public class P2CharachterSelectController {
     @FXML
     private ImageView imageView4;
     public int secondPCarachter = 0;
+
     @FXML
     private void handleImageClick(MouseEvent event) {
         ImageView clickedImageView = (ImageView) event.getSource();
@@ -40,19 +44,44 @@ public class P2CharachterSelectController {
             player2.getCharacter().setId(4);
             secondPCarachter = 4;
         }
-        openSelectModScene();
-    }
-        private void openThirdScene() {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ThirdScene.fxml"));
-                Parent root = loader.load();
-                ThirdSceneController controller = loader.getController();
-                controller.setSelectedImagePath(selectedImagePath);
 
-                Stage stage = (Stage) nextButton.getScene().getWindow();
-                stage.setScene(new Scene(root));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    }
+    @FXML
+    private void handleNextButton() {
+        openSelectModScene();
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    private void openSelectModScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ModChoose.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) nextButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public int P2selectedCharacterId()
+    {
+        return secondPCarachter;
+    }
+
+    @FXML
+    private void handleBackButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("P1CharachterSelect.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
