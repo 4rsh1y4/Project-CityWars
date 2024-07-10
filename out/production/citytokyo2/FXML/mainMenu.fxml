@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitMenuButton?>
@@ -160,6 +161,24 @@
       </ImageView>
       <AnchorPane fx:id="profileMenuAnchor" layoutX="98.0" layoutY="18.0" prefHeight="541.0" prefWidth="718.0" style="-fx-background-color: pink; -fx-background-radius: 40;">
          <children>
+            <AnchorPane fx:id="promptAnchor" layoutX="221.0" layoutY="127.0" prefHeight="242.0" prefWidth="242.0" style="-fx-background-color: #101010; -fx-background-radius: 40;">
+               <children>
+                  <AnchorPane layoutX="201.0" layoutY="14.0" style="-fx-background-color: white; -fx-background-radius: 50;">
+                     <children>
+                        <ImageView fx:id="promptClose" fitHeight="26.0" fitWidth="28.0" onMouseClicked="#closePromptAnchor" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/cross.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="promptLabel" layoutX="65.0" layoutY="56.0" prefHeight="90.0" prefWidth="210.0" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
             <ImageView fx:id="profileMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="678.0" layoutY="14.0" onMouseClicked="#closeProfileMenu" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/cross.png" />
@@ -183,24 +202,20 @@
                </font>
             </Label>
             <TextField fx:id="changeNickname" layoutX="89.0" layoutY="248.0" onAction="#startPromptAnchor3" prefHeight="17.0" prefWidth="461.0" promptText="Change your email" />
-            <AnchorPane fx:id="promptAnchor" layoutX="228.0" layoutY="149.0" prefHeight="242.0" prefWidth="242.0" style="-fx-background-color: #101010; -fx-background-radius: 40;">
-               <children>
-                  <AnchorPane layoutX="201.0" layoutY="14.0" style="-fx-background-color: white; -fx-background-radius: 50;">
-                     <children>
-                        <ImageView fx:id="promptClose" fitHeight="26.0" fitWidth="28.0" onMouseClicked="#closePromptAnchor" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../resources/cross.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <Label fx:id="promptLabel" layoutX="16.0" layoutY="76.0" prefHeight="90.0" prefWidth="210.0" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
+            <Label layoutX="89.0" layoutY="323.0" prefHeight="18.0" prefWidth="155.0" text="Password:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passfield1" layoutX="124.0" layoutY="357.0" promptText="Change your password" />
+            <PasswordField fx:id="passfield2" layoutX="124.0" layoutY="390.0" onAction="#changePass" promptText="Repeat" />
+            <Label fx:id="captcha" alignment="CENTER" layoutX="289.0" layoutY="309.0" prefHeight="132.0" prefWidth="401.0" style="-fx-font-family: 'Courier New'; -fx-font-size: 11; -fx-background-color: #FFFACD; -fx-padding: 10; -fx-background-radius: 40;" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="357.0" layoutY="282.0" prefHeight="18.0" prefWidth="158.0" text="Complete this captcha:" />
+            <TextField fx:id="captchaText" layoutX="467.0" layoutY="457.0" onAction="#changePass" prefHeight="26.0" prefWidth="78.0" promptText="Answer" />
          </children>
       </AnchorPane>
 
