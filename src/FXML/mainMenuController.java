@@ -38,9 +38,23 @@ public class mainMenuController {
 
 
     @FXML  public void init(){
-        Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3").toURI().toString());
+        Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
+        volumeSlider = new Slider(0, 1, 0.5);
+
+        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+
+        trackSelector = new ComboBox<>();
+        trackSelector.getItems().addAll("Track 1", "Track 2", "Track 3");
+        trackSelector.getSelectionModel().selectFirst();
+        trackSelector.setOnAction(this::changeTrack);
+
+        VBox settingsMenu = new VBox(10);
+        settingsMenu.setPadding(new Insets(10));
+        settingsMenu.setAlignment(Pos.CENTER);
+        settingsMenu.getChildren().addAll(new Label("Volume:"), volumeSlider, new Label("Track:"), trackSelector);
+        changeTrack(null);
 
 
         startGameAnchor.toBack();
@@ -360,48 +374,40 @@ public class mainMenuController {
         settingMenuAnchor.toFront();
         settingMenuAnchor.setVisible(true);
         settingMenuAnchor.setDisable(false);
-        volumeSlider = new Slider(0, 1, 0.5);
-        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
 
-        trackSelector = new ComboBox<>();
-        trackSelector.getItems().addAll("Track 1", "Track 2", "Track 3");
-        trackSelector.getSelectionModel().selectFirst();
-        trackSelector.setOnAction(this::changeTrack);
-
-        VBox settingsMenu = new VBox(10);
-        settingsMenu.setPadding(new Insets(10));
-        settingsMenu.setAlignment(Pos.CENTER);
-        settingsMenu.getChildren().addAll(new Label("Volume:"), volumeSlider, new Label("Track:"), trackSelector);
     }
     public void setSound(DragEvent event){
+        System.out.println(volumeSlider.valueProperty());
         mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
     }
-    public void changeTrack(ActionEvent event) {
-        String selectedTrack = trackSelector.getSelectionModel().getSelectedItem();
+    @FXML public void changeTrack(ActionEvent event) {
+        String selectedTrack = trackSelector.getValue();
+        System.out.println(selectedTrack);
         String trackpath = "";
 
-        switch (selectedTrack) {
-            case "Track 1":
-                trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3";
-                break;
-            case "Track 2":
-                trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/2song.mp3";
-                break;
-            case "Track 3":
-                trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3";
-                break;
-        }
+        if (selectedTrack != null) {
+            switch (selectedTrack) {
+                case "Track 1":
+                    trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3";
+                    break;
+                case "Track 2":
+                    trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/2song.mp3";
+                    break;
+                case "Track 3":
+                    trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3";
+                    break;
+            }
 
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-        }
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
 
-        Media media = new Media(new File(trackpath).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
-        mediaPlayer.play();
-    }
-    public void closeSettingMenu(MouseEvent event){
+            Media media = new Media(new File(trackpath).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+            mediaPlayer.play();
+        }
+    }    public void closeSettingMenu(MouseEvent event){
         settingMenuAnchor.toBack();
         settingMenuAnchor.setVisible(false);
         settingMenuAnchor.setDisable(true);

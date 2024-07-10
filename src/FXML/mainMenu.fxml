@@ -162,7 +162,7 @@
                   <Insets bottom="10" left="10" right="10" top="10" />
                </padding>
                <Label text="Volume:" />
-               <Slider fx:id="volumeSlider" max="1" min="0" onDragDropped="#setSound" value="0.5" />
+               <Slider fx:id="volumeSlider" max="1" min="0" onDragDone="#setSound" value="0.5" />
                <Label text="Track:" />
                <ComboBox fx:id="trackSelector" onAction="#changeTrack">
                   <items>
