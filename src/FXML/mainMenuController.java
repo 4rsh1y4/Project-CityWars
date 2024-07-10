@@ -35,26 +35,13 @@ public class mainMenuController {
     private User currentuser = new User();
     private MediaPlayer mediaPlayer;
 
-
+    @FXML public Slider volumeSlider;
+    @FXML public SplitMenuButton musicSelect;
 
     @FXML  public void init(){
         Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        volumeSlider = new Slider(0, 1, 0.5);
-
-        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
-
-        trackSelector = new ComboBox<>();
-        trackSelector.getItems().addAll("Track 1", "Track 2", "Track 3");
-        trackSelector.getSelectionModel().selectFirst();
-        trackSelector.setOnAction(this::changeTrack);
-
-        VBox settingsMenu = new VBox(10);
-        settingsMenu.setPadding(new Insets(10));
-        settingsMenu.setAlignment(Pos.CENTER);
-        settingsMenu.getChildren().addAll(new Label("Volume:"), volumeSlider, new Label("Track:"), trackSelector);
-        changeTrack(null);
 
 
         startGameAnchor.toBack();
@@ -71,6 +58,7 @@ public class mainMenuController {
         settingMenuAnchor.setDisable(true);
 
     }
+
 
     public void setCurrentuser(User currentuser) {
         this.currentuser = currentuser;
@@ -112,8 +100,6 @@ public class mainMenuController {
     @FXML private HBox cardContainer2;
     @FXML private ScrollPane scrollPane2;
 //SettingMenu
-    @FXML private Slider volumeSlider;
-    @FXML private ComboBox<String> trackSelector;
     @FXML private Button settingMenuButton;
     @FXML private AnchorPane settingMenuAnchor;
     @FXML private ImageView settingMenuClose;
@@ -158,7 +144,7 @@ public class mainMenuController {
             gameHistoryTable.getItems().add(new MatchDetailWrapper(matchDetail));
         }
     }
-    public List<MatchDetail> getMatchDetailsFromSource(){
+    public List<MatchDetail> getMatchDetailsFromSource()    {
         String gamesHistory = currentuser.getGameHistory();
         String[] history = gamesHistory.split(";");
         List<MatchDetail> matchDetailss = new ArrayList<>();
@@ -376,24 +362,28 @@ public class mainMenuController {
         settingMenuAnchor.setDisable(false);
 
     }
-    public void setSound(DragEvent event){
-        System.out.println(volumeSlider.valueProperty());
-        mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+    public void setSound(){
+        double volume = volumeSlider.getValue()/100;
+//        System.out.println(volume);
+        mediaPlayer.setVolume(volume);
     }
-    @FXML public void changeTrack(ActionEvent event) {
-        String selectedTrack = trackSelector.getValue();
-        System.out.println(selectedTrack);
-        String trackpath = "";
+    public void changeMusic(ActionEvent event){
+        MenuItem selectedMenuItem = (MenuItem) event.getSource();
+        String selectedTrack = selectedMenuItem.getText();
+        String trackpath="";
 
         if (selectedTrack != null) {
             switch (selectedTrack) {
-                case "Track 1":
+                case "Music 1":
+                    System.out.println(1);
                     trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3";
                     break;
-                case "Track 2":
+                case "Music 2":
+                    System.out.println(2);
                     trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/2song.mp3";
                     break;
-                case "Track 3":
+                case "Music 3":
+                    System.out.println(3);
                     trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3";
                     break;
             }
@@ -404,13 +394,16 @@ public class mainMenuController {
 
             Media media = new Media(new File(trackpath).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.volumeProperty().bind(volumeSlider.valueProperty());
+            mediaPlayer.setVolume(volumeSlider.getValue());
             mediaPlayer.play();
         }
-    }    public void closeSettingMenu(MouseEvent event){
+    }
+
+    public void closeSettingMenu(MouseEvent event){
         settingMenuAnchor.toBack();
         settingMenuAnchor.setVisible(false);
         settingMenuAnchor.setDisable(true);
     }
+
 
 }
