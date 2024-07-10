@@ -859,14 +859,11 @@ public class commandmanager {
     public static void Multiplay() {
             System.out.println(currentuser.getUsername()+" is now playing with " +secondUser.getUsername());
             Game game = new Game(currentuser,secondUser);
-            game.playGame();
+            game.processGame();
 
     }
 
-    public static void Bett() {
-        System.out.println("Not Ready");
-        startGame();
-    }
+
 
     //helpers
     public static void insertNewUserToDb(String email, String password, String username, String nickname, String questionAnswer, int questionNumber) {

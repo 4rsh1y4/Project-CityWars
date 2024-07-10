@@ -15,7 +15,7 @@ public class admin {
             e.printStackTrace();
         }
     }
-    private static void adminMenu() {
+    public static void adminMenu() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Admin Menu:");
