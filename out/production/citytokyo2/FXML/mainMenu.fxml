@@ -2,13 +2,13 @@
 
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,11 +16,29 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.mainMenuController">
    <children>
+      <AnchorPane fx:id="settingMenuAnchor" layoutX="170.0" layoutY="27.0" prefHeight="463.0" prefWidth="474.0" style="-fx-background-color: pink; -fx-background-radius: 10;">
+         <children>
+            <ImageView fx:id="settingMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="423.0" layoutY="18.0" onMouseClicked="#closeSettingMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+            <Slider fx:id="volumeSlider" blockIncrement="5.0" layoutX="164.0" layoutY="56.0" onMouseReleased="#setSound" prefHeight="14.0" prefWidth="230.0" value="50.0" />
+            <Label alignment="CENTER" layoutX="63.0" layoutY="54.0" prefHeight="18.0" prefWidth="52.0" text="Volume:" />
+            <Label alignment="CENTER" layoutX="60.0" layoutY="105.0" prefHeight="18.0" prefWidth="82.0" text="Select Music" />
+            <SplitMenuButton fx:id="musicSelect" layoutX="179.0" layoutY="102.0" mnemonicParsing="false" text="select Music:" textFill="#403232">
+              <items>
+                <MenuItem fx:id="music1" mnemonicParsing="false" onAction="#changeMusic" text="Music 1" />
+                <MenuItem fx:id="music2" mnemonicParsing="false" onAction="#changeMusic" text="Music 2" />
+                  <MenuItem fx:id="music3" mnemonicParsing="false" onAction="#changeMusic" text="Music 3" />
+              </items>
+            </SplitMenuButton>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="shopMenuAnchor" layoutX="168.0" layoutY="23.0" prefHeight="472.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
          <children>
                <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="40.0" prefHeight="187.0" prefWidth="538.0">
@@ -98,7 +116,7 @@
          <children>
             <Button fx:id="game1" layoutX="74.0" layoutY="64.0" mnemonicParsing="false" text="Button" />
             <Button fx:id="game2" layoutX="74.0" layoutY="100.0" mnemonicParsing="false" text="Button" />
-            <ImageView fx:id="GameAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="149.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="GameAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="149.0" layoutY="25.0" onMouseClicked="#closeGame" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/cross.png" />
                </image>
@@ -110,70 +128,74 @@
             <Font name="System Italic" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" alignment="CENTER_RIGHT" layoutX="118.0" layoutY="118.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-color: #36aa63; -fx-background-radius: 10;" text="Start Game">
+      <Button fx:id="startGameButton" alignment="CENTER_RIGHT" layoutX="114.0" layoutY="118.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-color: #36aa63; -fx-background-radius: 10;" text="Start Game">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="408.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
+      <Button fx:id="logOutButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="415.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: #36aa63;" text="Log Out">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="gameHistoryButton" alignment="CENTER_RIGHT" layoutX="118.0" layoutY="199.0" mnemonicParsing="false" onAction="#startGameHistory" style="-fx-background-color: #36aa63;" text="Game History">
+      <Button fx:id="gameHistoryButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="218.0" mnemonicParsing="false" onAction="#startGameHistory" style="-fx-background-color: #36aa63;" text="Game History">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="shopMenuButton" alignment="CENTER_RIGHT" layoutX="118.0" layoutY="273.0" mnemonicParsing="false" onAction="#startShopMenu" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #36aa63;" text="Shop Menu">
+      <Button fx:id="shopMenuButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="273.0" mnemonicParsing="false" onAction="#startShopMenu" prefHeight="38.0" prefWidth="104.0" style="-fx-background-color: #36aa63;" text="Shop Menu">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="settingMenuButton" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="341.0" mnemonicParsing="false" onAction="#startSettinMenu" style="-fx-background-color: #36aa63;" text="Setting Menu">
+      <Button fx:id="settingMenuButton" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="326.0" mnemonicParsing="false" onAction="#startSettinMenu" style="-fx-background-color: #36aa63;" text="Setting Menu">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="445.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="100.0" style="-fx-background-color: #36aa63;" text="Start Game">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="479.0" mnemonicParsing="false" style="-fx-background-color: #36aa63;" text="Start Game">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="23.0" onMouseClicked="#startProfileMenu" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/default.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="settingMenuAnchor" layoutX="675.0" layoutY="333.0" prefHeight="170.0" prefWidth="138.0" style="-fx-background-color: pink; -fx-background-radius: 10;">
+      <AnchorPane fx:id="profileMenuAnchor" layoutX="98.0" layoutY="18.0" prefHeight="541.0" prefWidth="718.0" style="-fx-background-color: pink; -fx-background-radius: 40;">
          <children>
-            <ImageView fx:id="settingMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="162.0" layoutY="15.0" onMouseClicked="#closeSettingMenu" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="profileMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="678.0" layoutY="14.0" onMouseClicked="#closeProfileMenu" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/cross.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" spacing="10.0">
-               <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
-               </padding>
-               <Label text="Volume:" />
-               <Slider fx:id="volumeSlider" max="1" min="0" onDragDone="#setSound" value="0.5" />
-               <Label text="Track:" />
-               <ComboBox fx:id="trackSelector" onAction="#changeTrack">
-                  <items>
-                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Track 1" />
-                        <String fx:value="Track 2" />
-                        <String fx:value="Track 3" />
-                     </FXCollections>
-                  </items>
-               </ComboBox>
-            </VBox>
+            <Label layoutX="89.0" layoutY="56.0" prefHeight="18.0" prefWidth="155.0" text="Username:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="138.0" prefHeight="18.0" prefWidth="155.0" text="Email:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="changeEmail" layoutX="89.0" layoutY="165.0" onAction="#startPromptAnchor2" prefHeight="17.0" prefWidth="461.0" promptText="Change your email" />
+            <TextField fx:id="changeUsername" layoutX="89.0" layoutY="82.0" onAction="#startPromptAnchor1" prefHeight="17.0" prefWidth="461.0" promptText="Change your email" />
+            <Label layoutX="89.0" layoutY="221.0" prefHeight="18.0" prefWidth="155.0" text="Nickname:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="changeNickname" layoutX="89.0" layoutY="248.0" onAction="#startPromptAnchor3" prefHeight="17.0" prefWidth="461.0" promptText="Change your email" />
+            <AnchorPane fx:id="promptAnchor" layoutX="228.0" layoutY="149.0" prefHeight="242.0" prefWidth="242.0" style="-fx-background-color: #101010; -fx-background-radius: 40;">
+               <children>
+                  <AnchorPane layoutX="201.0" layoutY="14.0" style="-fx-background-color: white; -fx-background-radius: 50;">
+                     <children>
+                        <ImageView fx:id="promptClose" fitHeight="26.0" fitWidth="28.0" onMouseClicked="#closePromptAnchor" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/cross.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
 

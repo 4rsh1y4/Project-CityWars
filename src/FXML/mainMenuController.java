@@ -4,27 +4,30 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import phase1.*;
 import phase1.MatchDetail;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,11 +35,15 @@ import java.util.List;
 
 
 public class mainMenuController {
+
     private User currentuser = new User();
     private MediaPlayer mediaPlayer;
 
-    @FXML public Slider volumeSlider;
-    @FXML public SplitMenuButton musicSelect;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+
 
     @FXML  public void init(){
         Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3").toURI().toString());
@@ -56,6 +63,9 @@ public class mainMenuController {
         settingMenuAnchor.toBack();
         settingMenuAnchor.setVisible(false);
         settingMenuAnchor.setDisable(true);
+        profileMenuAnchor.toBack();
+        profileMenuAnchor.setDisable(true);
+        profileMenuAnchor.setVisible(false);
 
     }
 
@@ -103,6 +113,20 @@ public class mainMenuController {
     @FXML private Button settingMenuButton;
     @FXML private AnchorPane settingMenuAnchor;
     @FXML private ImageView settingMenuClose;
+    @FXML public Slider volumeSlider;
+    @FXML public SplitMenuButton musicSelect;
+//logout
+    @FXML private Button logOutButton;
+//profileMenu
+    @FXML private AnchorPane profileMenuAnchor;
+    @FXML private ImageView profileMenuClose;
+    @FXML private AnchorPane promptAnchor;
+    @FXML private ImageView promptClose;
+    @FXML private TextField changeUsername;
+    @FXML private TextField changeEmail;
+    @FXML private TextField changeNickname;
+    @FXML private Label promptLabel;
+
 
     //startGame
     public void startGame(){
@@ -115,6 +139,7 @@ public class mainMenuController {
         startGameAnchor.setDisable(true);
         startGameAnchor.setVisible(false);
     }
+
 
     //GameHistory
     public void startGameHistory(ActionEvent event){
@@ -178,7 +203,6 @@ public class mainMenuController {
 
         ObservableList<MatchDetailWrapper> observableList = FXCollections.observableArrayList(currentPageItems);
         gameHistoryTable.setItems(observableList);    }
-
     @FXML private void handlePreviousPage() {
         wherepage.setText(String.valueOf(currentPage));
 
@@ -198,7 +222,6 @@ public class mainMenuController {
             System.out.println("You are on the last page.");
         }
     }
-
     @FXML private void handleSort() {
         String sortOption = sortChoiceBox.getValue();
         String sortOrder = orderChoiceBox.getValue();
@@ -355,6 +378,7 @@ public class mainMenuController {
         currentuser.upgradeCardList();
     }
 
+
     //SettingMenu
     public void startSettinMenu(){
         settingMenuAnchor.toFront();
@@ -370,20 +394,21 @@ public class mainMenuController {
     public void changeMusic(ActionEvent event){
         MenuItem selectedMenuItem = (MenuItem) event.getSource();
         String selectedTrack = selectedMenuItem.getText();
+        musicSelect.setText(selectedTrack);
         String trackpath="";
 
         if (selectedTrack != null) {
             switch (selectedTrack) {
                 case "Music 1":
-                    System.out.println(1);
+//                    System.out.println(1);
                     trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/1song.mp3";
                     break;
                 case "Music 2":
-                    System.out.println(2);
+//                    System.out.println(2);
                     trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/2song.mp3";
                     break;
                 case "Music 3":
-                    System.out.println(3);
+//                    System.out.println(3);
                     trackpath = "C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3";
                     break;
             }
@@ -398,12 +423,66 @@ public class mainMenuController {
             mediaPlayer.play();
         }
     }
-
     public void closeSettingMenu(MouseEvent event){
         settingMenuAnchor.toBack();
         settingMenuAnchor.setVisible(false);
         settingMenuAnchor.setDisable(true);
     }
+
+
+    //logout
+    public void logOut(ActionEvent event) throws IOException {
+        currentuser = null;
+        mediaPlayer.stop();
+
+        root = FXMLLoader.load(getClass().getResource("/FXML/logIn.fxml"));
+        stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    //profile Menu
+
+    public void startProfileMenu(){
+        promptAnchor.toBack();
+        profileMenuAnchor.toFront();
+        profileMenuAnchor.setDisable(false);
+        profileMenuAnchor.setVisible(true);
+        promptAnchor.setVisible(false);
+        promptAnchor.setDisable(true);
+    }
+    public void closeProfileMenu(){
+        profileMenuAnchor.toBack();
+        profileMenuAnchor.setDisable(true);
+        profileMenuAnchor.setVisible(false);
+    }
+    public void closePromptAnchor(){
+        promptLabel.setStyle("-fx-background-color: white");
+        startProfileMenu();
+    }
+    public void startPromptAnchor1(){
+        promptAnchor.toFront();
+        promptAnchor.setDisable(false);
+        promptAnchor.setVisible(true);
+        String username = changeUsername.getText();
+        if(DatabaseHelper.ExistUsername(username)){
+            promptLabel.setText(username+"is already taken!");
+            promptLabel.setStyle("-fx-background-color: red");
+        }else{
+            promptLabel.setText("Your username changed to "+ username);
+            DatabaseHelper.changeUsername(currentuser.getUsername(),username);
+            currentuser.setUsername(username);
+        }
+
+    }
+    public void startPromptAnchor2(){
+
+    }
+    public void startPromptAnchor3(){
+
+    }
+
 
 
 }
