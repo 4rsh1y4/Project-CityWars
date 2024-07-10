@@ -97,7 +97,7 @@ public class logInController {
         countdownTimeline.setCycleCount(Timeline.INDEFINITE);
 
         countdownTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
-            prompt.setText("Please wait " + (countdownSeconds-2) + " seconds before trying again.");
+            prompt.setText("Please wait " + (countdownSeconds-1) + " seconds before trying again.");
             countdownSeconds--;
 
             if (countdownSeconds <= 0) {
