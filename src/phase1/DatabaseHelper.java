@@ -3,7 +3,7 @@ package phase1;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class DatabaseHelper {
     private static final String DATABASE_URL = "jdbc:sqlite:C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/database/mydb.db";
@@ -272,8 +272,73 @@ public class DatabaseHelper {
         }
         return false;
     }
+    public static void insertCard(String name, int cardDefense, int playerDamage, int duration, int upgradeLevel, int upgradeCost, int character, String type) {
+        String query = "INSERT INTO cards (name, AttDef, PlaDam, duration, upgradeLevel, upgradeCost, character, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            pstmt.setInt(2, cardDefense);
+            pstmt.setInt(3, playerDamage);
+            pstmt.setInt(4, duration);
+            pstmt.setInt(5, upgradeLevel);
+            pstmt.setInt(6, upgradeCost);
+            pstmt.setInt(7, character);
+            pstmt.setString(8, type);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Card inserted successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static boolean existCardName(String name) {
+        String query = "SELECT COUNT(*) FROM cards WHERE name = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean deleteCard(String name) {
+        String query = "DELETE FROM cards WHERE name = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, name);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static void updateCard(String name, int cardDefense, int playerDamage, int duration,
+                                  int upgradeLevel, int upgradeCost, int character, String type) {
+        String query = "UPDATE cards SET AttDef = ?, PlaDam = ?, duration = ?, " +
+                "upgradeLevel = ?, upgradeCost = ?, character = ?, type = ? WHERE name = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, cardDefense);
+            pstmt.setInt(2, playerDamage);
+            pstmt.setInt(3, duration);
+            pstmt.setInt(4, upgradeLevel);
+            pstmt.setInt(5, upgradeCost);
+            pstmt.setInt(6, character);
+            pstmt.setString(7, type);
+            pstmt.setString(8, name);
 
-
-
-
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Card updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

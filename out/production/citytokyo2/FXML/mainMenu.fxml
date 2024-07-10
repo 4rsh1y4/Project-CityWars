@@ -21,6 +21,77 @@
 
 <AnchorPane prefHeight="585.0" prefWidth="948.0" style="-fx-background-color: #ffe59e; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.mainMenuController">
    <children>
+      <AnchorPane fx:id="settingMenuAnchor" layoutX="170.0" layoutY="27.0" prefHeight="463.0" prefWidth="474.0" style="-fx-background-color: pink; -fx-background-radius: 10;">
+         <children>
+            <ImageView fx:id="settingMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="423.0" layoutY="18.0" onMouseClicked="#closeSettingMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+            <Slider fx:id="volumeSlider" blockIncrement="5.0" layoutX="164.0" layoutY="56.0" onMouseReleased="#setSound" prefHeight="14.0" prefWidth="230.0" value="50.0" />
+            <Label alignment="CENTER" layoutX="63.0" layoutY="54.0" prefHeight="18.0" prefWidth="52.0" text="Volume:" />
+            <Label alignment="CENTER" layoutX="60.0" layoutY="105.0" prefHeight="18.0" prefWidth="82.0" text="Select Music" />
+            <SplitMenuButton fx:id="musicSelect" layoutX="179.0" layoutY="102.0" mnemonicParsing="false" text="select Music:" textFill="#403232">
+              <items>
+                <MenuItem fx:id="music1" mnemonicParsing="false" onAction="#changeMusic" text="Music 1" />
+                <MenuItem fx:id="music2" mnemonicParsing="false" onAction="#changeMusic" text="Music 2" />
+                  <MenuItem fx:id="music3" mnemonicParsing="false" onAction="#changeMusic" text="Music 3" />
+              </items>
+            </SplitMenuButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="gameHistoryAnchor" layoutX="168.0" layoutY="23.0" prefHeight="410.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
+         <children>
+            <ImageView fx:id="HistoryAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="520.0" layoutY="24.0" onMouseClicked="#closeGameHistory" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+
+            <TableView fx:id="gameHistoryTable" layoutX="25.0" layoutY="50.0" prefHeight="138.0" prefWidth="530.0" style="-fx-background-radius: 40; -fx-background-color: #ffe59e;">
+               <columns>
+                  <TableColumn fx:id="dateColumn" editable="false" text="Date" />
+                  <TableColumn fx:id="timeColumn" editable="false" text="Time" />
+                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="56.79998779296875" text="Status" />
+                  <TableColumn fx:id="enemyNameColumn" editable="false" prefWidth="66.39996337890625" text="Enemy" />
+                  <TableColumn fx:id="enemyLevelColumn" editable="false" prefWidth="86.4000244140625" text="Enemy Level" />
+                  <TableColumn editable="false" prefWidth="69.5999755859375" text="XP Change" fx:id="xpChangeColumn" />
+                  <TableColumn fx:id="coinChangeColumn" editable="false" prefWidth="95.2000732421875" text="Coin Change" />
+               </columns>
+            </TableView>
+
+            <HBox alignment="CENTER" layoutX="150.0" layoutY="340.0" spacing="10" />
+
+            <HBox alignment="CENTER" layoutX="112.0" layoutY="301.0" spacing="10">
+               <Label text="Sort by:" />
+               <ChoiceBox fx:id="sortChoiceBox">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Enemy Name" />
+                        <String fx:value="Enemy Level" />
+                        <String fx:value="Date Time" />
+                     </FXCollections>
+                  </items>
+               </ChoiceBox>
+
+               <Label text="Order:" />
+               <ChoiceBox fx:id="orderChoiceBox">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Ascending" />
+                        <String fx:value="Descending" />
+                     </FXCollections>
+                  </items>
+               </ChoiceBox>
+
+               <Button onAction="#handleSort" text="Sort" />
+            </HBox>
+            <Label fx:id="wherepage" alignment="CENTER" layoutX="192.0" layoutY="205.0" prefHeight="18.0" prefWidth="210.0" />
+            <TextField fx:id="pageTextField" alignment="CENTER" layoutX="256.0" layoutY="242.0" onAction="#goToPage" prefHeight="26.0" prefWidth="82.0" promptText="Go to page:" />
+            <Button layoutX="370.0" layoutY="243.0" onAction="#handleNextPage" text="Next" />
+            <Button layoutX="162.0" layoutY="243.0" onAction="#handlePreviousPage" text="Previous" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="profileMenuAnchor" layoutX="98.0" layoutY="18.0" prefHeight="541.0" prefWidth="718.0" style="-fx-background-color: pink; -fx-background-radius: 40;">
          <children>
             <AnchorPane fx:id="promptAnchor" layoutX="221.0" layoutY="127.0" prefHeight="242.0" prefWidth="242.0" style="-fx-background-color: #101010; -fx-background-radius: 40;">
@@ -80,98 +151,6 @@
             <TextField fx:id="captchaText" layoutX="467.0" layoutY="457.0" onAction="#changePass" prefHeight="26.0" prefWidth="78.0" promptText="Answer" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingMenuAnchor" layoutX="170.0" layoutY="27.0" prefHeight="463.0" prefWidth="474.0" style="-fx-background-color: pink; -fx-background-radius: 10;">
-         <children>
-            <ImageView fx:id="settingMenuClose" fitHeight="26.0" fitWidth="28.0" layoutX="423.0" layoutY="18.0" onMouseClicked="#closeSettingMenu" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/cross.png" />
-               </image>
-            </ImageView>
-            <Slider fx:id="volumeSlider" blockIncrement="5.0" layoutX="164.0" layoutY="56.0" onMouseReleased="#setSound" prefHeight="14.0" prefWidth="230.0" value="50.0" />
-            <Label alignment="CENTER" layoutX="63.0" layoutY="54.0" prefHeight="18.0" prefWidth="52.0" text="Volume:" />
-            <Label alignment="CENTER" layoutX="60.0" layoutY="105.0" prefHeight="18.0" prefWidth="82.0" text="Select Music" />
-            <SplitMenuButton fx:id="musicSelect" layoutX="179.0" layoutY="102.0" mnemonicParsing="false" text="select Music:" textFill="#403232">
-              <items>
-                <MenuItem fx:id="music1" mnemonicParsing="false" onAction="#changeMusic" text="Music 1" />
-                <MenuItem fx:id="music2" mnemonicParsing="false" onAction="#changeMusic" text="Music 2" />
-                  <MenuItem fx:id="music3" mnemonicParsing="false" onAction="#changeMusic" text="Music 3" />
-              </items>
-            </SplitMenuButton>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="shopMenuAnchor" layoutX="168.0" layoutY="23.0" prefHeight="472.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
-         <children>
-               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="40.0" prefHeight="187.0" prefWidth="538.0">
-                  <HBox fx:id="cardContainer" spacing="10.0" />
-               </ScrollPane>
-            <ScrollPane fx:id="scrollPane2" layoutX="14.0" layoutY="272.0" prefHeight="187.0" prefWidth="538.0">
-               <content>
-                  <HBox fx:id="cardContainer2" spacing="10.0" />
-               </content>
-            </ScrollPane>
-            <Label layoutX="32.0" layoutY="241.0" prefHeight="26.0" prefWidth="127.0" text="Locked Cards">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="GameAnchorClose1" fitHeight="26.0" fitWidth="28.0" layoutX="521.0" layoutY="13.0" onMouseClicked="#closeShopMenu" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/cross.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-      <AnchorPane fx:id="gameHistoryAnchor" layoutX="168.0" layoutY="23.0" prefHeight="410.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
-         <children>
-            <ImageView fx:id="HistoryAnchorClose" fitHeight="26.0" fitWidth="28.0" layoutX="520.0" layoutY="24.0" onMouseClicked="#closeGameHistory" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/cross.png" />
-               </image>
-            </ImageView>
-
-            <TableView fx:id="gameHistoryTable" layoutX="25.0" layoutY="50.0" prefHeight="138.0" prefWidth="530.0" style="-fx-background-radius: 40; -fx-background-color: #ffe59e;">
-               <columns>
-                  <TableColumn fx:id="dateColumn" editable="false" text="Date" />
-                  <TableColumn fx:id="timeColumn" editable="false" text="Time" />
-                  <TableColumn fx:id="statusColumn" editable="false" prefWidth="56.79998779296875" text="Status" />
-                  <TableColumn fx:id="enemyNameColumn" editable="false" prefWidth="66.39996337890625" text="Enemy" />
-                  <TableColumn fx:id="enemyLevelColumn" editable="false" prefWidth="86.4000244140625" text="Enemy Level" />
-                  <TableColumn editable="false" prefWidth="69.5999755859375" text="XP Change" fx:id="xpChangeColumn" />
-                  <TableColumn fx:id="coinChangeColumn" editable="false" prefWidth="95.2000732421875" text="Coin Change" />
-               </columns>
-            </TableView>
-
-            <HBox alignment="CENTER" layoutX="150.0" layoutY="340.0" spacing="10" />
-
-            <HBox alignment="CENTER" layoutX="112.0" layoutY="301.0" spacing="10">
-               <Label text="Sort by:" />
-               <ChoiceBox fx:id="sortChoiceBox">
-                  <items>
-                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Enemy Name" />
-                        <String fx:value="Enemy Level" />
-                        <String fx:value="Date Time" />
-                     </FXCollections>
-                  </items>
-               </ChoiceBox>
-
-               <Label text="Order:" />
-               <ChoiceBox fx:id="orderChoiceBox">
-                  <items>
-                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Ascending" />
-                        <String fx:value="Descending" />
-                     </FXCollections>
-                  </items>
-               </ChoiceBox>
-
-               <Button onAction="#handleSort" text="Sort" />
-            </HBox>
-            <Label fx:id="wherepage" alignment="CENTER" layoutX="192.0" layoutY="205.0" prefHeight="18.0" prefWidth="210.0" />
-            <TextField fx:id="pageTextField" alignment="CENTER" layoutX="256.0" layoutY="242.0" onAction="#goToPage" prefHeight="26.0" prefWidth="82.0" promptText="Go to page:" />
-            <Button layoutX="370.0" layoutY="243.0" onAction="#handleNextPage" text="Next" />
-            <Button layoutX="162.0" layoutY="243.0" onAction="#handlePreviousPage" text="Previous" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="startGameAnchor" layoutX="168.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 70;">
          <children>
             <Button fx:id="game1" layoutX="74.0" layoutY="64.0" mnemonicParsing="false" text="Button" />
@@ -182,12 +161,7 @@
                </image>
             </ImageView>
          </children>
-      </AnchorPane>  
-      <Label fx:id="promptt" alignment="CENTER" layoutX="320.0" layoutY="23.0" prefHeight="20.0" prefWidth="307.0">
-         <font>
-            <Font name="System Italic" size="16.0" />
-         </font>
-      </Label>
+      </AnchorPane>
       <Button fx:id="startGameButton" alignment="CENTER_RIGHT" layoutX="114.0" layoutY="118.0" mnemonicParsing="false" onAction="#startGame" style="-fx-background-color: #36aa63; -fx-background-radius: 10;" text="Start Game">
          <font>
             <Font size="16.0" />
@@ -263,6 +237,32 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="shopMenuAnchor" layoutX="168.0" layoutY="23.0" prefHeight="472.0" prefWidth="579.0" style="-fx-background-color: #fa35ae; -fx-background-radius: 50;">
+         <children>
+               <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="40.0" prefHeight="187.0" prefWidth="538.0">
+                  <HBox fx:id="cardContainer" spacing="10.0" />
+               </ScrollPane>
+            <ScrollPane fx:id="scrollPane2" layoutX="14.0" layoutY="272.0" prefHeight="187.0" prefWidth="538.0">
+               <content>
+                  <HBox fx:id="cardContainer2" spacing="10.0" />
+               </content>
+            </ScrollPane>
+            <Label layoutX="32.0" layoutY="241.0" prefHeight="26.0" prefWidth="127.0" text="Locked Cards">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="GameAnchorClose1" fitHeight="26.0" fitWidth="28.0" layoutX="521.0" layoutY="13.0" onMouseClicked="#closeShopMenu" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/cross.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="32.0" layoutY="13.0" prefHeight="26.0" prefWidth="127.0" text="Unlocked Cards">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
 
    </children>
 </AnchorPane>
