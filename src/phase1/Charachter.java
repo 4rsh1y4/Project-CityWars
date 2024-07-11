@@ -23,6 +23,7 @@ public class Charachter {
     {
 
     }
+
     public Charachter(int n){
         this.cards = new ArrayList<>();
         this.name =  names[n];

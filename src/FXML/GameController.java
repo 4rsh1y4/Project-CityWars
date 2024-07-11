@@ -10,11 +10,13 @@ public class GameController {
     private int mode ;
     private Player player1,player2;
 
-    @FXML private Label test;
+    @FXML private Label label1,label2;
 
 
     @FXML public void init(){
-        test.setText(player1.getCharacter().toString() + "  "+player2.getCharacter().toString());
+        label1.setText(player1.getNickname()+"       playing as:"+player1.getCharacter() + "          hp:"+player1.getHp());
+        label1.setText(player1.getNickname()+"       playing as:"+player2.getCharacter() + "          hp:"+player2.getHp());
+
     }
 
     public void setMode(int mode) {

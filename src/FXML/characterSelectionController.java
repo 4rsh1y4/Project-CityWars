@@ -77,7 +77,7 @@ public class characterSelectionController {
     public void handleImageClick2(MouseEvent event){
         ImageView cardImageView = (ImageView) event.getSource();
         boxCharacters2.setDisable(true);
-        boxCharacters1.setOpacity(0.5);
+        boxCharacters2.setOpacity(0.5);
         for(int i=0;i<4;i++){
             if(cardImageView.getId().equals(Charachter.names[i])) ch2 = i;
         }
