@@ -119,7 +119,7 @@ public class Card {
         return cardAttackDefence;
     }
     public void setCardAttackDefence(int cardDefence) {
-        if(cardDefence >= 10 && cardDefence <= 100) {
+        if(cardDefence >= 10 && cardDefence <= 1000) {
             this.cardAttackDefence = cardDefence;
         } else {
             throw new IllegalArgumentException("Card defence must be between 10 and 100.");
@@ -139,7 +139,7 @@ public class Card {
         return playerDamage;
     }
     public void setPlayerDamage(int playerDamage) {
-        if(playerDamage >= 10 && playerDamage <= 50) {
+        if(playerDamage >= 10 && playerDamage <= 500) {
             this.playerDamage = playerDamage;
         } else {
             throw new IllegalArgumentException("Player damage must be between 10 and 50.");

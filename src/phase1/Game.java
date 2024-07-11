@@ -29,8 +29,11 @@ public class Game {
         Random random = new Random();
         firstTurn = random.nextInt(2);
         currentPlayer= random.nextBoolean();
+        //player1.hand.clear();;
+        //player2.hand.clear();
         for(int i = 0 ; i < 5 ; i++)
         {
+
             player1.addToHand(player1.cardChooser());
             player2.addToHand(player2.cardChooser());
         }
@@ -69,10 +72,10 @@ public class Game {
                 int cardNumber = Integer.parseInt(selectMatcher.group(1));
                 int playerNumber = Integer.parseInt(selectMatcher.group(2));
                 if (playerNumber == 2) {
-                    player2.getHand().get(cardNumber - 1).toString();
+                    System.out.println(player2.getHand().get(cardNumber - 1).toString());
                 }
                 if (playerNumber == 1) {
-                    player1.getHand().get(cardNumber - 1).toString();
+                    System.out.println(player1.getHand().get(cardNumber - 1).toString());
                 }
                 i--;
                 continue;
@@ -83,7 +86,7 @@ public class Game {
                 if(playingPlayer.getHand().get(cardNumber - 1).getType().equals(playingPlayer.getHand().get(2).getType()) && playingPlayer.getHand().size()==5 && random.nextInt(p)==0)
                 {
                     playingPlayer.getHand().get(cardNumber - 1).setCardAttackDefence(playingPlayer.getHand().get(cardNumber - 1).getCardAttackDefence()*2);
-                    playingPlayer.getHand().get(cardNumber - 1).setPlayerDamage(playingPlayer.getHand().get(cardNumber - 1).getPlayerDamage()*2);
+                    playingPlayer.getHand().get(cardNumber - 1).setPlayerDamage(playingPlayer.getHand().get(cardNumber - 1).getPlayerDamage()+20);
                 }
                 if(playingPlayer.getHand().get(cardNumber - 1).getType().equals("b"))
                 {
@@ -190,24 +193,24 @@ public class Game {
                 }
                 else if (playingPlayer.putCard(playingPlayer.getHand().get(cardNumber - 1), blockIndex-1))
                 {
-                    playingPlayer.hand.remove(cardNumber - 1);
-                    for(int j = blockIndex-1;j<playingPlayer.getHand().get(cardNumber - 1).getDuration()+blockIndex-1;j++)
-                    {
-                        if(player1.getBoard()[j]!=null) {
-                            if (player2.getBoard()[j] != null) {
-                                if (player2.getBoard()[j].getCardAttackDefence() > player1.getBoard()[j].getCardAttackDefence()) {
-                                    player1.ruined[j]=true;
-                                } else if (player2.getBoard()[j].getCardAttackDefence() < player1.getBoard()[j].getCardAttackDefence()) {
-                                    player2.ruined[j]=true;
-                                }
-                                else
-                                {
-                                    player2.ruined[j]=true;
-                                    player1.ruined[j]=true;
+
+                        for (int j = blockIndex - 1; j < Math.min(playingPlayer.getHand().get(cardNumber - 1).getDuration() + blockIndex, 21); j++) {
+                            if (j >= 0 && j < player1.getBoard().length && j < player2.getBoard().length) {
+                                if (player1.getBoard()[j] != null) {
+                                    if (player2.getBoard()[j] != null) {
+                                        if (player2.getBoard()[j].getCardAttackDefence() >= player1.getBoard()[j].getCardAttackDefence()) {
+                                            player1.ruined[j] = true;
+                                        } else if (player2.getBoard()[j].getCardAttackDefence() <= player1.getBoard()[j].getCardAttackDefence()) {
+                                            player2.ruined[j] = true;
+                                        } else {
+                                            player2.ruined[j] = true;
+                                            player1.ruined[j] = true;
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
+                    playingPlayer.hand.remove(cardNumber - 1);
                     for(int kk = 0 ;kk < 21 ; kk ++)
                     {
                         boolean yes = false;
@@ -215,10 +218,13 @@ public class Game {
                         {
                             yes =true;
                             for(int kkk = kk+1 ; kkk<21 ; kkk++)
-                            {
-                                if(theOtherPlayer.getBoard()[kkk].getName().equals(theOtherPlayer.getBoard()[kk].getName()) )
-                                    if(!theOtherPlayer.ruined[kkk])
-                                        yes =false;
+                            {if(theOtherPlayer.getBoard()[kk]!=null && theOtherPlayer.getBoard()[kkk]!=null) {
+                                if (theOtherPlayer.getBoard()[kkk].getName().equals(theOtherPlayer.getBoard()[kk].getName()))
+                                {if (!theOtherPlayer.ruined[kkk])
+                                        yes = false;}
+                                else
+                                    break;
+                            }
                                 else
                                     break;
                                 kk=kkk;
@@ -307,7 +313,6 @@ public class Game {
 
     }
     public void playGame() {
-        displayGame();
         startGame();
         while (!endGame) {
             displayGame();
@@ -457,7 +462,9 @@ public class Game {
         System.out.println(player2.boardToString());
 
         System.out.println("Player 1 Hand:");
-        player1.toStringHand();;
+        player1.toStringHand();
+        System.out.println("Player 2 Hand:");
+        player2.toStringHand();;
 
         System.out.println("Player 1 HP: " + player1.getHp());
         System.out.println("Player 1 Damage: " + player1.getDamage());

@@ -26,7 +26,7 @@ public class admin {
             System.out.println("5. Logout");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -77,7 +77,7 @@ public class admin {
         System.out.println("Enter character:");
         int character = scanner.nextInt();
 
-        scanner.nextLine(); // consume newline
+        scanner.nextLine();
 
         System.out.println("Enter card type:");
         String type = scanner.nextLine();
@@ -113,12 +113,11 @@ public class admin {
         System.out.println("Enter new character:");
         int character = scanner.nextInt();
 
-        scanner.nextLine(); // Consume newline after reading integer input
+        scanner.nextLine();
 
         System.out.println("Enter new card type:");
         String type = scanner.nextLine();
 
-        // Update the card in the database
         DatabaseHelper.updateCard(name, cardDefense, playerDamage, duration, upgradeLevel, upgradeCost, character, type);
     }
 
