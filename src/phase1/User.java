@@ -63,7 +63,7 @@ public class User {
 //                        System.err.println("Invalid card code: " + code);
                     }
                 } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                    System.err.println("Invalid card string: " + string);
+//                    System.err.println("Invalid card string: " + string);
                 }
             }
         }

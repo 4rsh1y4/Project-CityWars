@@ -146,7 +146,7 @@ public class Player {
             for (int i = 0; i < hand.size(); i++) {
                 Card card = hand.get(i);
                 if (card != null) {
-                    System.out.println((i + 1) + ": " + card.toString());
+//                    System.out.println((i + 1) + ": " + card.toString());
                 }
             }
         }

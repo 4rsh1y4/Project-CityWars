@@ -5,15 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import phase1.DatabaseHelper;
 
 public class Main extends Application {
     public static void main(String[] args){
         DatabaseHelper.loadCardsFromDatabase();
         DatabaseHelper.loadUsersFromDatabase();
 
-//        commandmanager.start();
-launch();
+        commandmanager.start();
+//launch();
     }
 
     @Override
