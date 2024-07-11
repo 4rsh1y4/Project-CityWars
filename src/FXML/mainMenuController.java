@@ -32,10 +32,8 @@ import phase1.MatchDetail;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.logging.Level;
 
 
 public class mainMenuController {
@@ -55,15 +53,81 @@ public class mainMenuController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
+    @FXML private AnchorPane mainAnchor;
+    @FXML private Label report;
+    @FXML private HBox cardContainerStarter;
+    @FXML private ScrollPane scrollPaneStart;
 
     @FXML
     public void init() {
         Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
+        updateProfile();
+        mainAnchor.setStyle("-fx-background-color: #ffe595");
+
+        if(currentuser.getCards().size()==0){
+            starterPackAnchor.toFront();
+            starterPackAnchor.setDisable(false);
+            starterPackAnchor.setVisible(true);
+            Set<Integer> randoms = new HashSet<>();
+            while (currentuser.getCards().size() < 15) {
+                Random random = new Random();
+                Integer ran = random.nextInt(21);
+                if (!randoms.contains(ran)) {
+                    Card adder = Card.cards.get(ran);
+                    currentuser.getCards().add(adder);
+                    randoms.add(ran);
+                }
+            }
+            if (!DatabaseHelper.changeUserCards(currentuser.getUsername(), currentuser.setCardsToString())) {
+                System.out.println("Failed to input to database");
+            }
+            cardContainerStarter.getChildren().clear();
+            for (Card card : currentuser.getCards()) {
+                StackPane cardPane = new StackPane();
+                ImageView cardImageView = new ImageView(new Image(getClass().getResourceAsStream(card.url)));
+                cardImageView.setFitHeight(153);
+                cardImageView.setFitWidth(100);
+                cardImageView.setStyle("-fx-background-radius: 20");
+
+                Label CostLabel = new Label(String.valueOf(card.getUpgradeCost()));
+                CostLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                CostLabel.setTextFill(Color.BLACK);
+                CostLabel.setStyle("-fx-background-color: gold; -fx-alignment: center; -fx-background-radius: 20;");
+                CostLabel.setPrefSize(50, 10);
+                StackPane.setAlignment(CostLabel, Pos.BOTTOM_CENTER);
+                StackPane.setMargin(CostLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+                cardPane.getChildren().addAll(cardImageView, CostLabel);
+
+                    if (card.getType().equals("a")) {
+                        Label attackDefenseLabel = new Label(String.valueOf(card.getCardAttackDefence()));
+                        attackDefenseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                        attackDefenseLabel.setTextFill(Color.RED);
+                        attackDefenseLabel.setStyle("-fx-background-color: yellow; -fx-alignment: center; -fx-background-radius: 20;");
+                        attackDefenseLabel.setPrefSize(30, 30);
+                        StackPane.setAlignment(attackDefenseLabel, Pos.TOP_LEFT);
+                        StackPane.setMargin(attackDefenseLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+
+                        Label playerDamageLabel = new Label(String.valueOf(card.getPlayerDamage()));
+                        playerDamageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+                        playerDamageLabel.setTextFill(Color.RED);
+                        playerDamageLabel.setStyle("-fx-background-color: green; -fx-alignment: center; -fx-background-radius: 20;");
+                        playerDamageLabel.setPrefSize(30, 30);
+                        StackPane.setAlignment(playerDamageLabel, Pos.TOP_RIGHT);
+                        StackPane.setMargin(playerDamageLabel, new javafx.geometry.Insets(0, 0, 0, 0));
+
+                        cardPane.getChildren().addAll(attackDefenseLabel, playerDamageLabel);
+                    }
+                    cardContainerStarter.getChildren().add(cardPane);
+
+            }
 
 
+
+
+
+        }
         startGameAnchor.toBack();
         startGameAnchor.setDisable(true);
         startGameAnchor.setVisible(false);
@@ -93,6 +157,9 @@ public class mainMenuController {
     public User getCurrentuser() {
         return currentuser;
     }
+
+
+    @FXML private Label xpLabel,coinLabel,hpLabel,levelLabel;
 
     //StartGame
     @FXML
@@ -196,6 +263,14 @@ public class mainMenuController {
     @FXML private PasswordField passwordField;
     @FXML private Label prompt;
 
+    @FXML private AnchorPane starterPackAnchor;
+    @FXML private ImageView promptClose1;
+
+    public void closestarter(){
+        starterPackAnchor.toBack();
+        starterPackAnchor.setDisable(true);
+        starterPackAnchor.setVisible(false);
+    }
     //startGame
     public void startGame() {
         if(seconduser==null){
@@ -208,6 +283,15 @@ public class mainMenuController {
             startGameAnchor.setDisable(false);
             startGameAnchor.setVisible(true);
         }
+    }
+
+    @FXML private Slider RRGB,GRGB,BRGB;
+
+    public void updateProfile(){
+        xpLabel.setText(" Xp:  "+ currentuser.getXp());
+        hpLabel.setText(" Hp:  "+ currentuser.getHp());
+        levelLabel.setText(" level:  "+ currentuser.getLevel());
+        coinLabel.setText(" Coin:  "+ currentuser.getCoin());
     }
     public void Login(){
         if (isBanned) {
@@ -241,6 +325,20 @@ public class mainMenuController {
                 closeLogin();
             }
         }
+    }
+    @FXML public void setTheme() {
+        int R = (int) RRGB.getValue();
+        int G = (int) GRGB.getValue();
+        int B = (int) BRGB.getValue();
+        String RR = Integer.toHexString(R);
+        if(RR.length()==1) RR="0"+RR;
+        String GG = Integer.toHexString(G);
+        if(GG.length()==1) GG="0"+GG;
+        String BB = Integer.toHexString(B);
+        if(BB.length()==1) BB="0"+BB;
+        String color = "#" +RR+GG+BB;
+        report.setText("RGB: " + color);
+        mainAnchor.setStyle("-fx-background-color: "+color);
     }
     public void closeLogin(){
         secondLoginAnchor.toBack();
@@ -548,7 +646,7 @@ public class mainMenuController {
     }
 
     public void setSound() {
-        double volume = volumeSlider.getValue() / 100;
+        double volume = volumeSlider.getValue() / (80+0.2*volumeSlider.getValue());
 //        System.out.println(volume);
         mediaPlayer.setVolume(volume);
     }

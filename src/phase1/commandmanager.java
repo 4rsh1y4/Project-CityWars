@@ -465,7 +465,7 @@ public class commandmanager {
                     randoms.add(ran);
                 }
             }
-            if (!DatabaseHelper.changeUserCards(currentuser.getUsername(), currentuser.setCardsToString())) {
+                if (!DatabaseHelper.changeUserCards(currentuser.getUsername(), currentuser.setCardsToString())) {
                 System.out.println("Failed to input to database");
             } else {
                 System.out.println("welcome "+currentuser.getUsername()+"! You've been rewarded this peck of cards:");
