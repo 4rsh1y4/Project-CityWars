@@ -78,7 +78,7 @@ public class Player {
     public Player(User user) {
         this.user = user;
         this.round = 4;
-        this.setHand((ArrayList<Card>) user.getCards());
+        //this.setHand((ArrayList<Card>) user.getCards());
         for (int i = 0; i < corrupted.length; i++) {
             corrupted[i] = false;
 
@@ -94,12 +94,12 @@ public class Player {
 
     }
     public boolean putCard(Card card, int startingBlock) {
-        for(int i = 0; i < card.getDuration();i++)
+        for(int i = startingBlock; i < startingBlock+card.getDuration();i++)
         {
             if(corrupted[i] || ruined[i] || board[i]!=null)
                 return false;
         }
-        for(int i = 0; i < card.getDuration();i++)
+        for(int i = startingBlock; i < startingBlock+card.getDuration();i++)
         {
             board[i]=card;
         }
@@ -141,17 +141,16 @@ public class Player {
     }
 
 
-    public void toStringHand()
-    {
-        if(!makhfi)
-        {
-            for(int i = 0 ; i < hand.size(); i++)
-            {
-                System.out.println((i+1)+": "+hand.get(i).toString());
+    public void toStringHand() {
+        if (!makhfi) {
+            for (int i = 0; i < hand.size(); i++) {
+                Card card = hand.get(i);
+                if (card != null) {
+                    System.out.println((i + 1) + ": " + card.toString());
+                }
             }
         }
     }
-
     public ArrayList<Card> getHand() {
         return hand;
     }
@@ -190,7 +189,8 @@ public class Player {
             if(!corrupted[i])
             {
                 if(!ruined[i])
-                    dam+=board[i].getPlayerDamage();
+                    if(board[i]!=null)
+                        dam+=board[i].getPlayerDamage();
             }
         }
         return dam;

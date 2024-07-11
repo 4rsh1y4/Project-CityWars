@@ -12,8 +12,8 @@ public class Main extends Application {
         DatabaseHelper.loadCardsFromDatabase();
         DatabaseHelper.loadUsersFromDatabase();
 
-        launch();
-        //add random cards after sign up;
+        commandmanager.start();
+
     }
 
     @Override

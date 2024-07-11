@@ -52,12 +52,18 @@ public class User {
         String[] cardsSplit = cardString.split(",");
         for (String string : cardsSplit) {
             if (!string.isEmpty()) {
-                String code = string.substring(0, 1);
-                int level = Integer.parseInt(string.substring(1, 2));
-                Card card = Card.getAcard(code);
-                if (card != null) {
-                    card.setCardLevel(level);
-                    retur.add(card);
+                try {
+                    String code = string.substring(0, 1);
+                    int level = Integer.parseInt(string.substring(1, 2));
+                    Card card = Card.getAcard(code);
+                    if (card != null) {
+                        card.setCardLevel(level);
+                        retur.add(card);
+                    } else {
+                        System.err.println("Invalid card code: " + code);
+                    }
+                } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+                    System.err.println("Invalid card string: " + string);
                 }
             }
         }
