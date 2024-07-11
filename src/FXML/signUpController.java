@@ -88,6 +88,13 @@ public class signUpController {
         labelUsername.setText("");
         checkUsername.setStyle("-fx-background-color:  #ffefc2");
     }
+    public void goBack(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/FXML/welcome.fxml"));
+        stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void revertcolor1(KeyEvent event) {
         labelEmail.setText("");
