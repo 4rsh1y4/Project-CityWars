@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/logIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/welcome.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setResizable(false);
