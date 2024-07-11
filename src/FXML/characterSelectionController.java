@@ -99,6 +99,7 @@ public class characterSelectionController {
     public void gomode(){
         startAnchor.setOpacity(1);
         startAnchor.setDisable(false);
+        startAnchor.setVisible(true);
     }
     public void goback(javafx.event.ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/mainMenu.fxml"));
