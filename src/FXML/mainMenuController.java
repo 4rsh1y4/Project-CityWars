@@ -132,7 +132,10 @@ public class mainMenuController {
 
 
 
-        }
+        }starterPackAnchor.setDisable(true);
+        starterPackAnchor.setVisible(false);
+        starterPackAnchor.toBack();
+
         startGameAnchor.toBack();
         startGameAnchor.setDisable(true);
         startGameAnchor.setVisible(false);
@@ -277,16 +280,22 @@ public class mainMenuController {
         starterPackAnchor.setVisible(false);
     }
     //startGame
-    public void startGame() {
+    public void startGame(ActionEvent event) throws IOException {
         if(seconduser==null){
             secondLoginAnchor.toFront();
             secondLoginAnchor.setDisable(false);
             secondLoginAnchor.setVisible(true);
         }else {
-
-            startGameAnchor.toFront();
-            startGameAnchor.setDisable(false);
-            startGameAnchor.setVisible(true);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/characterSelection.fxml"));
+            root = loader.load();
+            characterSelectionController csc = loader.getController();
+            csc.setUser1(currentuser);
+            csc.setUser2(seconduser);
+            csc.setMediaPlayer(mediaPlayer);
+            stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 

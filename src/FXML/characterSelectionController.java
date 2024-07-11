@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import phase1.Charachter;
 import phase1.User;
@@ -28,6 +29,7 @@ public class characterSelectionController {
     private User user1,user2;
     private Integer ch1,ch2;
     private int mode;
+    private MediaPlayer mediaPlayer;
 
     @FXML private HBox boxCharacters1,boxCharacters2;
     @FXML private AnchorPane startAnchor;
@@ -58,6 +60,11 @@ public class characterSelectionController {
             boxCharacters2.getChildren().add(CharacterPane);
         }
     }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
+
     public void handleImageClick1(MouseEvent event){
         ImageView cardImageView = (ImageView) event.getSource();
         boxCharacters1.setDisable(true);
@@ -120,6 +127,7 @@ public class characterSelectionController {
         GameController GameController = loader.getController();
         GameController.setPlayers(user1,user2,ch1,ch2);
         GameController.setMode(mode);
+        GameController.init();
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);

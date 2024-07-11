@@ -13,7 +13,7 @@ public class GameController {
     @FXML private Label test;
 
 
-    @FXML public void initialize(){
+    @FXML public void init(){
         test.setText(player1.getCharacter().toString() + "  "+player2.getCharacter().toString());
     }
 
