@@ -58,6 +58,11 @@ public class mainMenuController {
     @FXML private HBox cardContainerStarter;
     @FXML private ScrollPane scrollPaneStart;
 
+    public void setSecondUser(User user){
+        this.seconduser = user;
+
+    }
+
     @FXML
     public void init() {
         Media media = new Media(new File("C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/resources/3song.mp3").toURI().toString());

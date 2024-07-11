@@ -4,9 +4,34 @@ import java.util.ArrayList;
 public class Charachter {
     int id;
     ArrayList<Card> cards;
+
+    private String name;
+
+    public static String[] urls = {
+            "/resources/Feminist.jpg",
+            "/resources/Fascist.jpg",
+            "/resources/Communist.jpg",
+            "/resources/Nigger.jpg"
+            };
+    public static String[] names = {
+            "Feminist",
+            "Fascist",
+            "Communist",
+            "Nigger"
+    };
     Charachter()
     {
 
+    }
+    public Charachter(int n){
+        this.cards = new ArrayList<>();
+        this.name =  names[n];
+        this.id = n;
+        for(Card card : Card.cards){
+            if(card.getCharacter()==n){
+                this.cards.add(card);
+            }
+        }
     }
     public int getId() {
         return id;

@@ -33,6 +33,10 @@ public class Card {
         this.type = card.type;
     }
 
+    public int getCharacter() {
+        return character;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }

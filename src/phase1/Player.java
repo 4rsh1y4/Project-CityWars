@@ -46,6 +46,7 @@ public class Player {
 
     }
 
+
     public Charachter getCharacter() {
         return character;
     }
