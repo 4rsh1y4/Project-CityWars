@@ -60,7 +60,7 @@ public class User {
                         card.setCardLevel(level);
                         retur.add(card);
                     } else {
-                        System.err.println("Invalid card code: " + code);
+//                        System.err.println("Invalid card code: " + code);
                     }
                 } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
                     System.err.println("Invalid card string: " + string);

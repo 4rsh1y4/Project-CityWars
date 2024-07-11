@@ -37,6 +37,9 @@ public class characterSelectionController {
     @FXML private Button startGame;
 
     @FXML public void initialize(){
+        startAnchor.setVisible(false);
+        startAnchor.setDisable(true);
+        startGame.setDisable(true);
         startAnchor.setOpacity(0.6);
         startAnchor.setDisable(true);
         for(int i=0;i<4;i++) {
@@ -72,7 +75,7 @@ public class characterSelectionController {
         for(int i=0;i<4;i++){
             if(cardImageView.getId().equals(Charachter.names[i])) ch1 = i;
         }
-        System.out.println(ch1);
+//        System.out.println(ch1);
     }
     public void handleImageClick2(MouseEvent event){
         ImageView cardImageView = (ImageView) event.getSource();
@@ -81,7 +84,7 @@ public class characterSelectionController {
         for(int i=0;i<4;i++){
             if(cardImageView.getId().equals(Charachter.names[i])) ch2 = i;
         }
-        System.out.println(ch2);
+//        System.out.println(ch2);
         if(ch1!=null){
             gomode();
         }

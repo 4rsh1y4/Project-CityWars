@@ -19,11 +19,15 @@ public class Game {
     int firstTurn;
     private int currentPlayerIndex;
 
+    public boolean getcurrentPlayer(){
+        return currentPlayer;
+    }
     public Game(User user1, User user2) {
         this.player1 = new Player(user1);
         this.player2 = new Player(user2);
         this.currentPlayerIndex = 0;
     }
+
 
     public void startGame() {
         Random random = new Random();
@@ -44,7 +48,7 @@ public class Game {
         }
     }
 
-    private void nextTurn(Player first, Player second) {
+    public void nextTurn(Player first, Player second) {
         Pattern selectPattern = Pattern.compile("-Select card number (\\d+) player (\\d+)");
 
         Pattern placePattern = Pattern.compile("-Placing card number (\\d+) in block (\\d+)");

@@ -7,6 +7,7 @@ import java.util.*;
 
 public class DatabaseHelper {
     private static final String DATABASE_URL = "jdbc:sqlite:G:/Karshenasi/Codes/oop/ProjFinal/src/database/mydb.db";
+    private static final String DATABASE_URM = "jdbc:sqlite:C:/Users/4rsh1y4/IdeaProjects/citytokyo2/src/database/mydb.db";
 
     static {
         try {
@@ -17,7 +18,7 @@ public class DatabaseHelper {
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DATABASE_URL);
+        return DriverManager.getConnection(DATABASE_URM);
     }
 
     public static boolean ExistUsername(String username) {

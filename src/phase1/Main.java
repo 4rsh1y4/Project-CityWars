@@ -12,8 +12,8 @@ public class Main extends Application {
         DatabaseHelper.loadCardsFromDatabase();
         DatabaseHelper.loadUsersFromDatabase();
 
-        commandmanager.start();
-
+//        commandmanager.start();
+launch();
     }
 
     @Override
